@@ -1,0 +1,41 @@
+*{
+    /* border:1px solid white; */
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.nav-container{
+    position: relative;   
+    height: 100px;
+    box-shadow: 0px 1px 4px grey;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10%;
+}
+
+nav ul{
+    display: flex;
+    flex-wrap: no-wrap;
+    list-style: none;
+    gap: 50px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-family: 'Poppins';
+}
+
+
+nav img{
+    height: 100px;
+    width: 150px;
+    object-fit: contain;
+}

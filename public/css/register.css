@@ -1,0 +1,159 @@
+
+/* -----------------------------Hero */
+
+/* *{
+    border: 1px solid black;
+} */
+
+
+/* -----------------------------LOGIN FORM */
+
+.register_hero img{
+    position: absolute;
+   width: 100%;
+   height: calc(100vh - 100px);
+   z-index: -999;
+}
+
+.input-group{
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 10px 0;
+    width: 90%;
+    max-width: 340px;
+    border: 1.4px solid rgb(165, 159, 159);
+    border-radius: 5px;
+}
+
+.input-group i {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+#register_form{
+    margin-top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    /* background: rgba(255,255,255,0.6);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.37);
+    backdrop-filter: blur( 2.5px );
+    -webkit-backdrop-filter: blur( 2.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+}
+
+#register_form #h3{
+    font-family:'poppins';
+    font-size: 46px;
+    width: 450px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    color:#143d63;
+}
+
+#register_form input{
+    height: 50px;
+    width: 90%;
+    font-size: 16px;
+    color: rgb(187, 177, 177);
+    padding:0 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color:rgb(48, 47, 45);
+    font-family: 'Roboto';
+}
+
+#register_form label{
+    font-family: 'Roboto';
+    position: absolute;
+    top:50%;
+    left:5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color:rgb(172, 166, 166);
+    padding: 0 5px;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+#register_form .input-group input:focus~label,
+#register_form .input-group input:valid~label {
+    top:0;
+    font-size: 12px;
+    background: rgb(255, 255, 255);
+    
+    }
+
+    #register_form button{
+    height: 50px;
+    margin-top: 18px;
+    width: 340px;
+    background-color: #004e96;
+    outline: none;
+    border: none;
+    border-radius: 12px;  
+    color:rgb(255, 255, 255);
+    font-family: 'poppins';
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+    }
+
+    #register_form button:hover{
+        background-color: #04325d;
+        color:white;
+        cursor: pointer;
+    }
+
+    #register_form button:focus{
+        color:#afa8a8 !important;
+    }
+
+    #register_form span{
+    font-size: 12px;
+    font-family:'roboto';
+    color:rgb(117, 117, 117);
+    width: 320px;
+    text-align: justify;
+}
+
+#register_form #loginPromo {
+        margin-top: 24px;
+        text-decoration: none;
+        width: 340px;
+        height: 50px;
+        text-align: center;
+        padding-top: 9px;
+        font-size: 18px;
+        color:black;
+        transition: 0.4s;
+        font-family: 'poppins';
+    }
+
+    #register_form #loginPromo a{
+        text-decoration: none;
+        color: #04325d;
+        font-size: 22px;
+    }
+
+    #register_form #loginPromo a:hover{
+        text-decoration: underline;
+    }
+
+    #h3_register{
+        font-family:'poppins';
+        font-size: 40px;
+       
+        line-height: 50px;
+        margin-bottom: 20px;
+        color:#143d63;
+    }
