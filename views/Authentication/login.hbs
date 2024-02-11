@@ -1,12 +1,21 @@
 
 <div class="hero">
-
+        
         <div class="img-container">
+
+            
+    
+            {{#if isApplicant}}
             <img src="/images/login_img2.svg" />
+            {{else}} 
+            <img src="/images/img_companyLogin.jpg" />
+            {{/if}}
+           
+          
          </div>
     
     <form id="login_form">
-        <h3 id="h3">Excited to have you join our network</h3>
+        <h3 id="h3">{{#if isApplicant}} Excited to have you join our network  {{else}} Ready to grow? Sign in and get started{{/if}}</h3>
         <div class="input-group">           
             <input type="email" id="email" name="email" required/>
             <label for="email">Email</label>
@@ -19,9 +28,9 @@
             
         </div>
 
-        <button> Sign in</button> <br>
+        <button> {{#if isApplicant}} Sign in as Applicant  {{else}} Sign in as Company{{/if}}</button> <br>
         <span>By clicking Continue, you agree to <strong>Better World's</strong> User Agreement, Privacy Policy, and Cookie Policy.</span>
-        <a href="/register"  id="registerPromo">New to Better World? Join now</a>
+        <a href="{{#if isApplicant}} /userRegister {{else}} /companyRegister {{/if}}"  id="registerPromo">New to Better World? Join now</a>
 
     </form>
 

@@ -14,14 +14,15 @@ const hbs = expressHbs.create({
 app.engine("hbs", hbs.engine)
 app.set("view engine", "hbs")
 
+//-------------ROUTES
+
+const {authRoute} = require('./Routes/authRoute')
+
+app.use('/', authRoute)
+
+
+
+
 app.listen(port, ()=>{
     console.log(`listening on port ${port}`)
-})
-
-app.get('/login', (req, res)=>{
-    res.render('Authentication/login')
-})
-
-app.get('/register', (req, res)=>{
-    res.render('Authentication/register')
 })
