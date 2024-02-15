@@ -1,0 +1,151 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+    /* border: 1px solid black; */
+}
+
+main{
+    margin: 10px auto;
+    width: 80%;
+}
+
+.container {
+    display: flex;
+    margin: auto;
+}
+
+.job-container,
+.job-description {
+    height: calc(100vh - 120px); 
+    overflow-y: auto; 
+}
+
+.job-container {
+    flex: 1; 
+    border: 1px solid #ccc; 
+    margin-right: 10px; 
+}
+
+.job {
+    display: flex;
+    gap:20px;
+    align-items: center;
+    height: 120px; 
+    border-bottom: 1px solid #eee; 
+    padding-left: 10px;
+}
+
+.job h1{
+    font-family: 'Poppins';
+    font-size: 20px;
+    color:rgb(20, 25, 118);
+    line-height: 24px;
+}
+.job h2{
+    font-size: 16px;
+    line-height: 20px;
+}
+.job h3{
+    font-size: 12px;
+    color:#777272;
+    font-weight: 100;
+    font-family: 'poppins';
+}
+.job p{
+    position: relative;
+    bottom: -14px;
+    font-size: 12px;
+    color:#1b1919;
+    font-family: 'poppins';
+}
+.job p span{
+    font-weight:bold;
+    color: rgb(40, 139, 40);
+}
+
+.job img{
+    object-fit: contain;
+    height: 100px;
+    width: 140px;
+}
+
+
+.job-description {
+    flex: 1.4; 
+    border: 1px solid #ccc; 
+    padding: 20px 30px; 
+}
+
+.job-description .job-header-container h1, h2{
+    font-family: 'Poppins';
+    line-height: 30px;
+}
+
+.job-description .job-header-container h2{
+    font-size: 18px;
+    color:#777272;
+    font-weight: 100;
+}
+
+.job-description .job-info-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.job-description .job-info-container span{
+    color:#373333;
+    font-family: 'Lato';
+    display: block;
+}
+
+.job-description .job-info-container i{
+    width: 10px;
+    height: 10px;
+    margin-right: 12px;
+}
+
+.job-description .job-info-container button{
+    margin-top: 8px;
+    width: 100px;
+    height: 34px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    background-color: #004e96;
+    color:white;
+    font-family: 'Roboto';
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+.job-description .job-info-container button:active{
+    background-color: #122335;
+}
+
+.job-description .additional-info{
+    margin-top: 30px;
+}
+
+.job-description .additional-info h1{
+    font-family: 'poppins';
+    font-size: 25px;
+    margin-bottom: 15px;
+    
+}
+
+.job-description .additional-info h2{
+    font-size: 20px;
+
+}
+
+.job-description .additional-info p, li{
+    font-family: 'poppins';
+    font-size: 14px;
+    text-align: justify;
+    color:rgb(37, 36, 36);
+   
+}

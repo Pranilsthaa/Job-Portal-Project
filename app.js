@@ -17,8 +17,10 @@ app.set("view engine", "hbs")
 //-------------ROUTES
 
 const {authRoute} = require('./Routes/authRoute')
+const {jobsRoute} = require('./Routes/jobsRoute')
 
 app.use('/', authRoute)
+app.use('/', jobsRoute)
 
 
 
