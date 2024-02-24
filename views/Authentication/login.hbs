@@ -1,4 +1,6 @@
-
+{{#if messages.error}}
+    {{messages.error}}
+{{/if}}
 <div class="hero">
         
         <div class="img-container">
@@ -6,15 +8,15 @@
             
     
             {{#if isApplicant}}
-            <img src="/images/login_img2.svg" loading="lazy" />
+            <img src="/static/images/login_img2.svg" loading="lazy" />
             {{else}} 
-            <img src="/images/img_companyLogin.jpg" loading="lazy" />
+            <img src="/static/images/img_companyLogin.jpg" loading="lazy" />
             {{/if}}
            
           
          </div>
     
-    <form id="login_form">
+    <form id="login_form" action=" {{#if isApplicant}} /userLogin {{else}} /companyLogin {{/if}}" method="post">
         <h3 id="h3">{{#if isApplicant}} Excited to have you join our network  {{else}} Ready to grow? Sign in and get started{{/if}}</h3>
         <div class="input-group">           
             <input type="email" id="email" name="email" required/>

@@ -4,7 +4,9 @@
    <div class="register_hero">
     {{!-- <img src="/images/bg_Register.jpg">
      --}}
-    <form id="register_form">
+
+     {{#if isApplicant}} <form id="register_form" action="/userRegister" method="post"> {{else}} <form id="register_form" action="/companyRegister" method="post">{{/if}}
+   
         
         <h3 id="h3_register">{{#if isApplicant}} Maximize Your Career Potential {{else}} Enter Company Details{{/if}}</h3>
         <div class="input-group">           
@@ -37,7 +39,7 @@
 
         <button> Agree & Join</button>
        
-        <p id="loginPromo">Already on Better World? <a href="{{#if isApplicant}} /userLogin {{else}} /companyLogin {{/if}}"> {{#if isApplicant}} Sign in as user {{else}} Sign in as company{{/if}}  </a> </p> 
+        <p id="loginPromo">Already on Better World? <a href="{{#if isApplicant}} /userLogin {{else}} /companyLogin {{/if}}"> {{#if isApplicant}} Sign in as Applicant {{else}} Sign in as company{{/if}}  </a> </p> 
 
     </form>
 
