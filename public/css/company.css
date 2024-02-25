@@ -1,0 +1,33 @@
+.hero{ 
+    position: absolute;
+    width: calc(100% - 250px);
+    left: 250px;
+}
+
+.hero caption{
+    font-size: 30px;
+}
+
+.company-sidebar{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 250px;
+    height: calc(100lvh - 104px);  
+    box-shadow: 1px 1px 4px black;
+    padding:20px;
+    margin: 0px 40px 0px -12px; 
+}
+
+
+.company-sidebar i {
+    font-size: 50px;
+}
+
+.company-sidebar h1{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'poppins';
+}

@@ -1,11 +1,40 @@
+    {{#if messages.success}}
+                <div class="auto-close alert alert-danger">
+                    {{messages.success}}
+                </div>
+    {{/if}}
+    
 
-    <main>
+     <main>
+    
+    
+
         <div class="container">
+
+            <div class="sidebar">
+                <div class="top">
+                    <i class="fa-solid fa-user"></i>
+                    <h1>Pranil Shrestha</h1>
+                </div>
+        
+                <div class="item">
+                    <ul>
+                        <li>Profile</li>
+                        <li>Track Application Status</li>
+                    </ul>
+                    <form action="/logout?_method=DELETE" method="post">
+                    <button>Logout</button>
+                    </form>
+                </div>
+        
+            </div>
 
         <div class="job-container">
 
                 <div class="job">
-                        <img src="/images/logo.png" alt="ss">
+                    <div class="img-container">
+                        <img src="/static/images/logo.png" alt="ss">
+                    </div>
                     <div class="job-info">
                         <h1>Marketing Officer</h1>
                         <h2>Company Name</h2>
@@ -13,7 +42,6 @@
                         <p>20 Days Remaining <span> • 16 Applicants</span> </p>
                     </div>
                 </div>
-
 
             </div>   
             
@@ -56,5 +84,6 @@
         </div>
 
     </main>
+
 
 

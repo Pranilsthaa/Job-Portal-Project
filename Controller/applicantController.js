@@ -4,18 +4,18 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 
 const loginApplicantForm = async (req, res) =>  {
-    res.render('Authentication/login' , {isApplicant : true})
-    await getData();
+    res.render('Authentication/login' , {isApplicant : true, isAuth: req.isAuthenticated()})
+    
 }
 
-const registerForm = (req, res) =>  {
-    res.render('Authentication/register', {isApplicant : true})
-}
+    const registerForm = (req, res) =>  {
+        res.render('Authentication/register', {isApplicant : true})
+    }
 
 const registerApplicant = async (req, res) =>  {
 
-    const value = req.body;
     try{
+        const value = req.body;
         const hasedPassword = await bcrypt.hash(req.body.password, 10)
         const data = await applicantModel.registerApplicant(value, hasedPassword);
 
@@ -27,8 +27,7 @@ const registerApplicant = async (req, res) =>  {
     }
 }
 
-
-async function getData(){
+const getData = async (req, res, next) => {
     try{
         const data = await applicantModel.getApplicantDetail();
         if (!Array.isArray(data)) {
@@ -37,36 +36,47 @@ async function getData(){
         initialize(passport, 
             email => data.find(user => user.applicant_email === email),
             id => data.find(user => user.applicant_id === id)
-        );
-    } catch(error){
-        throw error
-    }
-    
-}
-
-
-
-
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
+            );
+            next();
+        } catch(error){
+            throw error
+        }
+        
     }
 
-    res.redirect('/userLogin')
-  }
-  
-  function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return res.redirect('/jobs')
-    }
-    next()
-  }
 
+    function checkAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next()
+        }
+        res.redirect('/userLogin')
+    }
+
+        function checkNotAuthenticated(req, res, next) {
+          
+            if (req.isAuthenticated()) {
+                return res.render('/jobs')
+            }
+            next()
+        }
+
+
+    const logout = (req, res) => {
+        req.logOut((err)=>{
+                if(err){
+                    return next(err)
+                }
+            res.redirect('/userLogin')
+        });
+        
+    }
 
 module.exports={
     loginApplicantForm,
     registerForm,
     registerApplicant,
     checkAuthenticated,
-    checkNotAuthenticated
+    checkNotAuthenticated,
+    getData,
+    logout
 }

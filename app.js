@@ -11,6 +11,10 @@ const session = require('express-session')
 
 const passport = require('passport')
 
+const methodOverride = require('method-override')
+
+
+app.use(methodOverride('_method'))
 app.use('/static', express.static(__dirname + '/public'))
 app.use(express.urlencoded({ extended: false }))
 
@@ -23,21 +27,6 @@ const hbs = expressHbs.create({
 app.engine("hbs", hbs.engine)
 app.set("view engine", "hbs")
 
-// let users = [
-//     {
-//         id: 1,
-//         email:'pranil@gmail.com',
-//         password: '$2b$10$nAc.EUA/Fr2q1H5HT7G7oOcnc47cdLUoWWYXLazt9DVRmHkANjn5.'
-//     }
-// ]
-
-// const initialize = require('./Auth/passport-config');
-// initialize(passport, 
-//     email => users.find(user => user.email === email),
-//     id => users.find(user => user.id === id)
-// );
-
-
 app.use(flash());
 app.use(session({
     secret : process.env.SESSION_SECRET,
@@ -45,24 +34,23 @@ app.use(session({
     saveUninitialized: false
 }))
 
-app.use(passport.initialize())
+app.use(passport.initialize())  // INITIALIZING PASSPORTjs
 app.use(passport.session())
 
-// const bcrypt = require('bcrypt')
-// async function hello(){
-// console.log(await bcrypt.hash('123', 10)) 
-// }
-// hello()
+
 
 //-------------ROUTES
 
 const {authRoute} = require('./Routes/authRoute')
 const {jobsRoute} = require('./Routes/jobsRoute')
+const {companyRoute} = require('./Routes/companyRoute')
 
 app.use('/', authRoute)
 app.use('/', jobsRoute)
+app.use('/', companyRoute)
 
 
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}/userLogin`)
 })
+

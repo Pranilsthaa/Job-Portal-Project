@@ -5,14 +5,43 @@
     /* border: 1px solid black; */
 }
 
-main{
-    margin: 10px auto;
-    width: 80%;
-}
+
+
 
 .container {
     display: flex;
-    margin: auto;
+    position: relative;
+    margin-top: 10px;
+    float: left;
+    width: 100%;
+
+}
+
+.sidebar{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 250px;
+    height: calc(100lvh - 104px);  
+    box-shadow: 1px 1px 4px black;
+    padding:20px;
+    margin: 0px 40px 0px -12px; 
+}
+
+.sidebar i {
+    font-size: 50px;
+}
+
+.sidebar h1{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'poppins';
+}
+
+.item ul li{
+    list-style-type: none;
 }
 
 .job-container,
@@ -28,12 +57,15 @@ main{
 }
 
 .job {
+    position: relative;
     display: flex;
     gap:20px;
     align-items: center;
     height: 120px; 
     border-bottom: 1px solid #eee; 
     padding-left: 10px;
+    flex-wrap: nowrap;
+    height: 150px;
 }
 
 .job h1{
@@ -64,12 +96,16 @@ main{
     color: rgb(40, 139, 40);
 }
 
-.job img{
-    object-fit: contain;
+.img-container{
     height: 100px;
     width: 140px;
 }
 
+.job img{
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
 
 .job-description {
     flex: 1.4; 

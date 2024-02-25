@@ -6,13 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="/static/css/register.css">
     <link rel="stylesheet" href="/static/css/jobs.css">
+    <link rel="stylesheet" href="/static/css/company.css">
+    <link rel="stylesheet" href="/static/css/postJobs.css">
+
+
+
+
 
     {{!-- ------------------------Fonts used for the project--------------------- --}}
-
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -36,6 +43,7 @@
 <body>
 
     <div class="nav-container">
+        
         <nav>
             <div class="img">
                 <img src="/static/images/logo.png">
@@ -49,6 +57,16 @@
                 </ul>
                 </div>
 
+           {{#if isAuth}}       {{!--If Authenticated Show The Login And Register Btns --}}
+                 <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Login </button>
+                    <ul class="dropdown-menu">
+                         <li><a href="/companyLogin"><i class="fa-solid fa-building"></i>Company Login</a></li>
+                    </ul>
+                </div>
+            {{else}}            {{!--If Not Authenticated Hide The Register Btns --}}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -66,12 +84,24 @@
                          <li><a href="/companyRegister"><i class="fa-solid fa-building"></i>Company Register</a></li>
                         </ul>
                 </div>
+            {{/if}}
             </div>
         </nav>
     </div>
 
+
+
+
     {{{body}}}
 
+   
+
+
+
+
+<script src="/static/js/auto-close.js"></script>
+<script src="/static/js/icon.js"></script>
+<script src="/static/js/multi-step-form.js"></script>
 </body>
 
 </html>

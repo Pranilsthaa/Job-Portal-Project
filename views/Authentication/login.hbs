@@ -1,6 +1,6 @@
-{{#if messages.error}}
-    {{messages.error}}
-{{/if}}
+
+
+
 <div class="hero">
         
         <div class="img-container">
@@ -16,7 +16,14 @@
           
          </div>
     
+
+
     <form id="login_form" action=" {{#if isApplicant}} /userLogin {{else}} /companyLogin {{/if}}" method="post">
+    {{#if messages.error}}
+                <div class="auto-close alert alert-danger">
+                    {{messages.error}}
+                </div>
+    {{/if}}
         <h3 id="h3">{{#if isApplicant}} Excited to have you join our network  {{else}} Ready to grow? Sign in and get started{{/if}}</h3>
         <div class="input-group">           
             <input type="email" id="email" name="email" required/>

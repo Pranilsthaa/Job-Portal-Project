@@ -9,7 +9,7 @@
 /* -----------------------------LOGIN FORM */
 
 .register_hero img{
-    position: absolute;
+   position: absolute;
    width: 100%;
    height: calc(100vh - 100px);
    z-index: -999;
@@ -29,9 +29,9 @@
 .input-group i {
     position: absolute;
     right: 10px;
+    top: 15px;
     cursor: pointer;
 }
-
 
 #register_form{
     margin-top: 2%;
@@ -151,8 +151,7 @@
 
     #h3_register{
         font-family:'poppins';
-        font-size: 40px;
-       
+        font-size: 40px;  
         line-height: 50px;
         margin-bottom: 20px;
         color:#143d63;
