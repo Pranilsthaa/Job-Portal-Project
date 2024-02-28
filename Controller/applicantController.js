@@ -1,5 +1,5 @@
 const applicantModel = require('../Model/applicantModel')
-const initialize = require('../Auth/passport-config');
+const initialize = require('../Auth/passport-config-user')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 
@@ -44,6 +44,16 @@ const getData = async (req, res, next) => {
         
     }
 
+    const getProfileForm = async (req, res) =>{
+        try {
+            res.render('Applicant/applicantProfile');   
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+//------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
     function checkAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
@@ -52,14 +62,15 @@ const getData = async (req, res, next) => {
         res.redirect('/userLogin')
     }
 
-        function checkNotAuthenticated(req, res, next) {
-          
-            if (req.isAuthenticated()) {
-                return res.render('/jobs')
-            }
-            next()
+    function checkNotAuthenticated(req, res, next) {
+        
+        if (req.isAuthenticated()) {
+            return res.redirect('/jobs')
         }
+        next()
+    }
 
+//------------------------------------------------------Logout
 
     const logout = (req, res) => {
         req.logOut((err)=>{
@@ -78,5 +89,6 @@ module.exports={
     checkAuthenticated,
     checkNotAuthenticated,
     getData,
-    logout
+    logout,
+    getProfileForm
 }

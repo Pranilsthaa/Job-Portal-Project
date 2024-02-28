@@ -1,0 +1,46 @@
+ <div class="company-sidebar">
+        <div class="top">
+            <i class="fa-solid fa-house-laptop"></i>
+            <h1>{{data.company_name}}</h1>
+        </div>
+
+        <div class="item">
+            <ul>
+                <li> <a href="/company/Dashboard">Dashboard</a> </li>
+                <li> <a href="/company/profile/{{data.company_id}}">Profile</a> </li>
+                <li> <a href="/company/postJobs">Post New Jobs</a> </li>
+                <li> <a href="/company/applicants">Applicants</a> </li>
+            </ul>
+            <form action="/companylogout?_method=DELETE" method="post">
+           <button class="button-name">Logout</button>
+            </form>
+        </div>
+
+    </div>
+
+<div class="hero">
+     <div class="job-listing">
+            <table class="table caption-top">
+                <caption>APPLICANTS</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">S.N</th>
+                    <th scope="col">Posted Date</th>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Applicants</th>
+                    <th scope="col" colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>2024/12/1</td>
+                    <td>Full Stack Developer</td>
+                    <td>10</td>
+                    <td><a href="">Edit</a></td>
+                    <td><a href="">Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+</div>

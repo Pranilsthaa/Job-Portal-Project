@@ -40,6 +40,7 @@
     font-family: 'poppins';
 }
 
+
 .item ul li{
     list-style-type: none;
 }
@@ -66,6 +67,7 @@
     padding-left: 10px;
     flex-wrap: nowrap;
     height: 150px;
+    transition: 0.4s ease-in-out;
 }
 
 .job h1{
@@ -73,10 +75,13 @@
     font-size: 20px;
     color:rgb(20, 25, 118);
     line-height: 24px;
+    filter: drop-shadow(1px 1px 1px rgb(163, 162, 196));
 }
 .job h2{
     font-size: 16px;
     line-height: 20px;
+    color: black ; 
+    filter: drop-shadow(1px 1px 1px rgb(163, 162, 196));
 }
 .job h3{
     font-size: 12px;
@@ -175,13 +180,23 @@
 
 .job-description .additional-info h2{
     font-size: 20px;
-
 }
 
 .job-description .additional-info p, li{
     font-family: 'poppins';
     font-size: 14px;
     text-align: justify;
-    color:rgb(37, 36, 36);
-   
+    color:rgb(37, 36, 36);  
+}
+
+.job-container a{
+    text-decoration: none;
+}
+
+.job-container a:hover h1{
+    text-decoration: underline;
+}
+
+.job:hover {
+    background-color: #ededf4;
 }

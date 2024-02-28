@@ -9,14 +9,13 @@
     width: 550px;
     height: 550px;
     object-fit: contain;
-    bottom:38%;
+    bottom:50%;
     transform: translateY(50%);
-    left:10%;
  }
-.img-container{
-    width: 58%;
-}
 
+.img-container{
+    width: 50%;
+}
 
  .img-container h1{
     display: flex;

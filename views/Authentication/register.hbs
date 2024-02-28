@@ -5,9 +5,8 @@
     {{!-- <img src="/images/bg_Register.jpg">
      --}}
 
-     {{#if isApplicant}} <form id="register_form" action="/userRegister" method="post"> {{else}} <form id="register_form" action="/companyRegister" method="post">{{/if}}
+     <form id="register_form" action="{{#if isApplicant}} /userRegister {{else}} /companyRegister {{/if}}"  method="post">
    
-        
         <h3 id="h3_register">{{#if isApplicant}} Maximize Your Career Potential {{else}} Enter Company Details{{/if}}</h3>
         <div class="input-group">           
             <input type="text" id="name" name="name" required/>

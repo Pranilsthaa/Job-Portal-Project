@@ -5,10 +5,7 @@
     {{/if}}
     
 
-     <main>
-    
-    
-
+     <main>  
         <div class="container">
 
             <div class="sidebar">
@@ -19,10 +16,11 @@
         
                 <div class="item">
                     <ul>
-                        <li>Profile</li>
-                        <li>Track Application Status</li>
+                        <li><a href="/applicant/jobs">Dashboard</a></li>
+                        <li><a href="/applicant/profile">Profile</a></li>
+                        <li><a href="">Track Application Status</a></li>
                     </ul>
-                    <form action="/logout?_method=DELETE" method="post">
+                    <form action="/applicantlogout?_method=DELETE" method="post">
                     <button>Logout</button>
                     </form>
                 </div>
@@ -30,34 +28,34 @@
             </div>
 
         <div class="job-container">
-
+            {{#each data}}
+            <a href="/applicant/jobs/{{job_id}}"> 
                 <div class="job">
                     <div class="img-container">
-                        <img src="/static/images/logo.png" alt="ss">
+                        <img src="/static/companyLogos/{{company_logo}}" alt="ss">
                     </div>
                     <div class="job-info">
-                        <h1>Marketing Officer</h1>
-                        <h2>Company Name</h2>
-                        <h3>Tilottama-15, Kotihawa</h3>
-                        <p>20 Days Remaining <span> • 16 Applicants</span> </p>
+                       <h1>{{job_title}}</h1>
+                        <h2>{{company_name}}</h2>
+                        <h3>{{job_location}}</h3>
+                        <p>Date Posted <span> {{dateposted}}</span> </p>
                     </div>
-                </div>
-
+                </div> </a>
+            {{/each}}
             </div>   
-            
+            {{#if des}}
             <div class="job-description">
 
                     <div class="job-header-container">
-                        <h1>Full Stack Engineer</h1>
-                        <h2>Company Name</h2>
-                        
+                        <h1>{{des.job_title}}</h1>
+                        <h2>{{des.company_name}}</h2>
                     </div>
 
                         <div class="job-info-container">
-                            <span> <i class="fa-solid fa-briefcase"></i> On-site Full-time</span>
-                            <span> <i class="fa-solid fa-list-check"></i> Skills: JavaScript, React, Node, MongoDB</span>
-                            <span> <i class="fa-solid fa-indian-rupee-sign"></i> Salary: Negotiable</span>
-                            <span> <i class="fa-solid fa-location-dot"></i> Tilottama-15, Kotihawa </span>
+                            <span> <i class="fa-solid fa-briefcase"></i> On-site {{des.job_type}}</span>
+                            <span> <i class="fa-solid fa-list-check"></i> Skills: {{des.skillsreq}}</span>
+                            <span> <i class="fa-solid fa-indian-rupee-sign"></i> Salary: {{des.salary}}</span>
+                            <span> <i class="fa-solid fa-location-dot"></i> {{des.job_location}} </span>
                             <button type="button">Apply</button>
                         </div>
 
@@ -66,21 +64,18 @@
                         <h1>About the job</h1>
 
                             <h2>Job Description</h2>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod explicabo ea illum non, alias id sunt libero aut voluptate nemo. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium odit et numquam quas aliquid minus maxime veniam praesentium velit!</p> <br>
+                            <p>{{des.job_description}}</p> <br>
 
                         <h2>Required Knowledge</h2>
 
-                            <li>Lorem ipsum dolor sit amet consectetur.</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</li>
-                            <li>Lorem ipsum dolor sit.</li> 
+                            <li>{{des.knowledge}}</li>
                             <br>
 
                         <h2>Education + Experience</h2>
-                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, sapiente.</li>
+                        <li>{{des.education}}</li>
                     </div>
             </div>
+            {{/if}}
         </div>
 
     </main>

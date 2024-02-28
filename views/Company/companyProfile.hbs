@@ -1,0 +1,76 @@
+ <div class="company-sidebar">
+        <div class="top">
+            <i class="fa-solid fa-house-laptop"></i>
+            <h1>{{data.company_name}}</h1>
+        </div>
+
+        <div class="item">
+            <ul>
+                <li> <a href="/company/Dashboard">Dashboard</a> </li>
+                <li> <a href="/company/profile/{{data.company_id}}">Profile</a> </li>
+                <li> <a href="/company/postJobs">Post New Jobs</a> </li>
+                <li> <a href="/company/applicants">Applicants</a> </li>
+            </ul>
+            <form action="/companylogout?_method=DELETE" method="post">
+            <button class="button-name">Logout</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="hero-profile">
+            <form class="row g-3" action="/company/profile/{{data.company_id}}" method="post" enctype="multipart/form-data">
+            {{#if messages.success}}
+                <div class="auto-close alert alert-success">
+                    <Span>{{messages.success}}</Span>
+                </div>
+            {{/if}}
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{company.company_email}}">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword4" value="{{company.company_password}}" disabled>
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">Phone</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="Phone" name="phone" value="{{company.company_phone}}">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">Address</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{company.company_address}}">
+  </div>
+
+
+  <div class="col-md-6">
+    <label for="formFile" class="form-label">Provide Company Logo</label>
+  <input class="form-control" type="file" id="formFile" name="company_logo">
+  </div>
+  {{!-- <div class="col-md-4">
+    <label for="inputState" class="form-label">State</label>
+    <select id="inputState" class="form-select">
+      <option selected>Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="inputZip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="inputZip">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div> --}}
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">UPDATE</button>
+  </div>
+</form>
+    </div>
+
+
+    

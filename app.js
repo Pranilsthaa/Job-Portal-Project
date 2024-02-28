@@ -8,7 +8,7 @@ const port = 8000;
 var app = express();
 const flash = require('express-flash')
 const session = require('express-session')
-
+const helper = require('./Helper/helper')
 const passport = require('passport')
 
 const methodOverride = require('method-override')
@@ -21,7 +21,8 @@ app.use(express.urlencoded({ extended: false }))
 const hbs = expressHbs.create({
     extname: ".hbs",
     defaultLayout: "main.hbs",
-    layoutDir: "views/layouts/",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    layoutDir: "views/layouts/",   
+    helpers: helper                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 })
 
 app.engine("hbs", hbs.engine)
@@ -42,12 +43,12 @@ app.use(passport.session())
 //-------------ROUTES
 
 const {authRoute} = require('./Routes/authRoute')
-const {jobsRoute} = require('./Routes/jobsRoute')
+const {applicantRoute} = require('./Routes/applicantRoute')
 const {companyRoute} = require('./Routes/companyRoute')
 
 app.use('/', authRoute)
-app.use('/', jobsRoute)
-app.use('/', companyRoute)
+app.use('/applicant', applicantRoute)
+app.use('/company', companyRoute)
 
 
 app.listen(port, ()=>{
