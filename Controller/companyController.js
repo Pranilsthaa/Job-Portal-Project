@@ -1,5 +1,6 @@
 const companyModel = require('../Model/companyModel')
 const jobModel = require('../Model/jobModel')
+const applicationModel = require('../Model/applicationModel')
 const bcrypt = require('bcrypt')
 const initialize = require('../Auth/passport-config-company')
 const passport = require('passport')
@@ -17,7 +18,13 @@ const companyDashboard = async (req, res) =>  {
     try{
          const id = req.user.company_id;
          let jobList = await companyModel.getJobListedByCompany(id);
-         res.render('Company/companyDashboard', {data: req.user, joblist: jobList})
+         let applicantCount = await companyModel.getApplicantCount(req.user.company_id)
+        
+        let newjobList = jobList.map((job, index) => ({
+            ...job,
+            applicantCount: applicantCount[index].applicantCount || 0 
+        }));
+         res.render('Company/companyDashboard', {data: req.user, joblist: newjobList, applicantCount: applicantCount})
     }catch(error){
         console.log(error);
     }
@@ -65,7 +72,7 @@ const deleteJob = async (req, res) =>  {
     try{      
         const job_id = req.params.job_id;
     
-        let data = await jobModel.deleteJob(job_id)
+        let data = await jobModel.deleteJob(job_id, req.user.company_id)
         req.flash('success', "Job Deleted Successfully")
         res.redirect('/Company/Dashboard')
     }
@@ -74,8 +81,26 @@ const deleteJob = async (req, res) =>  {
     }
 }
             
-const getJobApplicant = (req, res) =>  {
-    res.render('Company/jobApplicant', {data: req.user})
+const getJobApplicant = async(req, res) =>  {
+    try{
+        let data = await companyModel.getApplicationInfo(req.user.company_id);
+        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data})
+    }catch(error){
+        console.log(error);
+    }
+}
+
+const respondToApplication = async (req, res) => {       
+    try{
+            const status = req.params.status;
+            const id = req.params.id;
+            const data = await applicationModel.changeApplicationStatus(status,id);
+            return res.redirect('/company/applicants')
+    }
+
+    catch(error){
+        throw error
+    }
 }
 
 const getProfileForm = async (req, res) =>  {
@@ -176,6 +201,9 @@ const getData = async (req, res, next) => {
         
     }
 
+ 
+    
+
 module.exports={
     loginCompany,
     getRegisterCompanyForm,
@@ -192,6 +220,7 @@ module.exports={
     logout,
     getEditJobForm,
     updateJobDetail,
-    deleteJob
+    deleteJob,
+    respondToApplication
 }
 

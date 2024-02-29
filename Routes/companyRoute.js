@@ -5,7 +5,9 @@ const upload = require('../middleware/imageHandler');
 const jobModel = require('../Model/jobModel')
 
 companyRoute.get('/Dashboard',controller.checkAuthenticated, controller.companyDashboard)
+
 companyRoute.get('/applicants', controller.getJobApplicant)
+companyRoute.get('/applicants/:status/:id', controller.respondToApplication)
 
 companyRoute.get('/profile/:id', controller.getProfileForm)
 companyRoute.post('/profile/:id',upload.single('company_logo'), controller.updateProfile)

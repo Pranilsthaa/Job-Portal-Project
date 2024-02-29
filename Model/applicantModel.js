@@ -32,12 +32,78 @@ function getApplicantDetail() {
     });
 }
 
+function getApplicantDetailByID(id) {
+    return new Promise ((resolve, reject) => { 
+        connection.query('SELECT * FROM applicant_detail where applicant_id=?', [id],
+     (error, result) => {
+        if (error) {
+            return reject(error);
+        }
+        else{
+            return resolve(result);
+     
+        }
+    })
+    });
+}
+
+function getImageURL(id){
+    return new Promise((resolve, reject)=>{
+        connection.query('SELECT applicant_resume FROM applicant_detail where applicant_id=?', [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
+
+function updateApplicantProfile(values, id, src) {
+    const {name, email, phone, address} = values;
+
+return new Promise ((resolve, reject) => { 
+    connection.query('UPDATE applicant_detail SET applicant_name=?, applicant_phone=?, applicant_address=?, applicant_email=?, applicant_resume=? where applicant_id=?', [name, phone, address, email, src, id],
+ (error, result) => {
+    if (error) {
+        console.error('Error updating applicant profile:', error);
+        return reject(error);
+    }
+    else{
+        return resolve(result);
+    }
+})
+});
+}
+
+function updateProfileWithoutImg(values, id) {
+    const {name, email, phone, address} = values;
+
+return new Promise ((resolve, reject) => { 
+    connection.query('UPDATE applicant_detail SET applicant_name=?, applicant_phone=?, applicant_address=?, applicant_email=? where applicant_id=?', [name, phone, address, email, id],
+ (error, result) => {
+    if (error) {
+        console.error('Error updating applicant profile (without Img):', error);
+        return reject(error);
+    }
+    else{
+        return resolve(result);
+    }
+})
+});
+}
 
 
 
 module.exports = {
     registerApplicant,
-    getApplicantDetail
+    getApplicantDetail,
+    getApplicantDetailByID,
+    getImageURL,
+    updateApplicantProfile,
+    updateProfileWithoutImg
 }
 
 

@@ -1,17 +1,19 @@
   <main>  
-        <div class="container">
-
+       
+    <div class="container">
             <div class="sidebar">
                 <div class="top">
+                   <div class="profile-img">
                     <i class="fa-solid fa-user"></i>
-                    <h1>Pranil Shrestha</h1>
+                    </div>
+                    <h1>{{id.applicant_name}}</h1>
                 </div>
         
                 <div class="item">
                     <ul>
                         <li><a href="/applicant/jobs">Dashboard</a></li>
-                        <li><a href="/applicant/profile">Profile</a></li>
-                        <li><a href="">Track Application Status</a></li>
+                        <li><a href="/applicant/profile/{{data.applicant_id}}">Profile</a></li>
+                        <li><a href="/applicant/trackStatus">Track Status</a></li>
                     </ul>
                     <form action="/applicantlogout?_method=DELETE" method="post">
                     <button>Logout</button>
@@ -20,35 +22,38 @@
         
             </div>
   
-  
   <div class="hero-profile">
-            <form class="row g-3" action="/company/profile/{{data.company_id}}" method="post" enctype="multipart/form-data">
+            <form class="row g-3" action="/applicant/profile/{{info.applicant_id}}" method="post" enctype="multipart/form-data">
             {{#if messages.success}}
                 <div class="auto-close alert alert-success">
                     <Span>{{messages.success}}</Span>
                 </div>
             {{/if}}
+    <div class="col-md-6">
+    <label for="inputZip" class="form-label">Name</label>
+    <input type="text" class="form-control" id="inputZip" name="name" value="{{info.applicant_name}}">
+  </div>
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{company.company_email}}">
+    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{info.applicant_email}}">
   </div>
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4" value="{{company.company_password}}" disabled>
+    <input type="password" class="form-control" id="inputPassword4" value="{{info.applicant_password}}" disabled>
   </div>
   <div class="col-12">
     <label for="inputAddress" class="form-label">Phone</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="Phone" name="phone" value="{{company.company_phone}}">
+    <input type="text" class="form-control" id="inputAddress" placeholder="Phone" name="phone" value="{{info.applicant_phone}}">
   </div>
   <div class="col-12">
     <label for="inputAddress2" class="form-label">Address</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{company.company_address}}">
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{info.applicant_address}}">
   </div>
 
 
   <div class="col-md-6">
-    <label for="formFile" class="form-label">Provide Company Logo</label>
-  <input class="form-control" type="file" id="formFile" name="company_logo">
+    <label for="formFile" class="form-label">Provide Your Resume</label>
+  <input class="form-control" type="file" id="formFile" name="applicant_resume">
   </div>
   {{!-- <div class="col-md-4">
     <label for="inputState" class="form-label">State</label>
@@ -74,4 +79,4 @@
   </div>
 </form>
     </div>
-
+</div>

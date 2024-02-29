@@ -22,27 +22,74 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
     width: 250px;
-    height: calc(100lvh - 104px);  
-    box-shadow: 1px 1px 4px black;
+    height: calc(100lvh - 100px);  
+    box-shadow: 0px 6px 6px black; 
     padding:20px;
     margin: 0px 40px 0px -12px; 
+    gap: 30px;
+}
+
+.sidebar .top{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.sidebar .profile-img{
+    background-color: #7b9fc1;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    
 }
 
 .sidebar i {
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
     font-size: 50px;
 }
 
 .sidebar h1{
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 100;
     font-family: 'poppins';
+    text-transform: capitalize;
 }
 
+.sidebar button{
+    outline: none;
+    border: none;
+    width: 100px;
+    height: 40px;
+    font-family: 'poppins';
+    border-radius: 6px;
+    background-color: #06437d;
+    color: white;
+    transition: 0.5 ease;
+}
+
+.sidebar button:hover{
+    background-color: #294178;
+}
+
+.sidebar button:active{
+    transform:translateY(3px);
+    background-color: #5585b2;
+}
 
 .item ul li{
     list-style-type: none;
+}
+
+.item ul li a{
+    text-decoration: none;
+    font-family: 'poppins';
+    color: black;
+    font-size: 20px;
 }
 
 .job-container,
@@ -148,6 +195,24 @@
     margin-right: 12px;
 }
 
+.job-description .job-info-container a{
+    text-decoration: none;
+    color:white;
+    width: 180px;
+    text-align: center;
+    height: 34px;
+    border-radius: 10px;
+    background-color: #b86800;
+    font-size: 15px;
+    font-size: 15px;
+    padding-top: 5px;
+    font-family: 'poppins';
+}
+
+.job-description .job-info-container a:active{
+    background-color: #92601e;
+}
+
 .job-description .job-info-container button{
     margin-top: 8px;
     width: 100px;
@@ -159,8 +224,9 @@
     color:white;
     font-family: 'Roboto';
     font-size: 15px;
-    cursor: pointer;
+    font-size: 15px;
 }
+
 
 
 .job-description .job-info-container button:active{
@@ -199,4 +265,32 @@
 
 .job:hover {
     background-color: #ededf4;
+}
+
+/* .card-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-container .cards{
+    height: 200px;
+    width: 200px;
+    background-color: #004e96;
+} */
+
+.bg-card{
+    padding:20px;
+    user-select: none;
+}
+
+.bg-card .status_info h4{
+    position: relative;
+    border: 1px solid grey;
+    padding:5px;
+    border-radius: 10px;
+    width:108px;
+    text-transform: capitalize;
+    font-family: 'poppins';
+    margin: auto;
+    
 }

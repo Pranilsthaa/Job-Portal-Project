@@ -113,6 +113,61 @@ function getJobListedByCompany(id){
     })
 }
 
+function getApplicantCount(com_id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT 
+                        J.Job_id,
+                        J.job_title,
+                        COUNT(A.applicant_id) AS applicantCount
+                    FROM 
+                        jobs AS J
+                    LEFT JOIN 
+                        application AS A ON J.Job_id = A.job_id
+                    WHERE 
+                        J.company_id = ?
+                    GROUP BY 
+                        J.Job_id,
+                        J.job_title;`, [com_id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
+
+function getApplicationInfo(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT 
+                        A.*,   
+                        J.job_title,
+                        AD.*  
+                        FROM 
+                        application AS A
+                        JOIN 
+                        jobs AS J ON A.job_id = J.Job_id
+                        JOIN
+                        applicant_detail AS AD ON A.applicant_id = AD.applicant_id
+                        WHERE 
+                        J.company_id = ?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                console.log(result);
+                return resolve(result)
+            }
+        })
+    })
+}
+
+
+
+
 module.exports = {
     registerCompany,
     getCompanyDetail,
@@ -120,5 +175,7 @@ module.exports = {
     getCompanyDetailByID,
     getImageURL,
     updateProfileWithoutImg,
-    getJobListedByCompany
+    getJobListedByCompany,
+    getApplicationInfo,
+    getApplicantCount
 }

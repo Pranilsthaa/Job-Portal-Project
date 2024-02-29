@@ -25,22 +25,80 @@
                 <thead>
                   <tr>
                     <th scope="col">S.N</th>
-                    <th scope="col">Posted Date</th>
+                    <th scope="col">Date Applied</th>
                     <th scope="col">Job Title</th>
-                    <th scope="col">Applicants</th>
+                    <th scope="col">Applicant Name</th>
+                    <th scope="col">Applicant Email</th>
+                    <th scope="col">Applicant Phone</th>
+                    <th scope="col">Applicant Address</th>
+                    <th scope="col">Resume</th>
                     <th scope="col" colspan="2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2024/12/1</td>
-                    <td>Full Stack Developer</td>
-                    <td>10</td>
-                    <td><a href="">Edit</a></td>
-                    <td><a href="">Delete</a></td>
-                  </tr>
+                   {{log applicationInfo}}
+                  {{#each applicationInfo}}
+                 
+                    <tr>
+                      <th scope="row">{{inc @index}}</th>
+                      <td>{{formatDate date_applied}}</td>
+                      <td>{{job_title}}</td>
+                      <td>{{applicant_name}}</td>
+                      <td>{{applicant_email}}</td>
+                      <td>{{applicant_phone}}</td>
+                      <td>{{applicant_address}}</td>
+                      {{#if (checkProgress Progress)}}
+                        <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal">Accept</button></td>
+                        <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button></td>
+                        
+                      {{else}}
+                        <td><strong>{{Progress}}</strong></td>
+                      {{/if}}
+                       <td><a href="/static/applicantResume/{{applicant_resume}}" target="_blank">{{#if applicant_resume}}Show Resume{{/if}}</a></td> 
+                    </tr>
+                    
+                    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you Sure you want to accept the application?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-success" onclick="window.location.href='/company/applicants/accepted/{{application_id}}'">Yes</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you Sure you want to reject the application?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" onclick="window.location.href='/company/applicants/rejected/{{application_id}}'">Yes</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {{/each}}
                 </tbody>
               </table>
         </div>
 </div>
+
+
+
+
+                  

@@ -1,8 +1,8 @@
-    {{#if messages.success}}
-                <div class="auto-close alert alert-danger">
-                    {{messages.success}}
+ {{#if messages.success}}
+                <div class="auto-close alert alert-success">
+                    <Span>{{messages.success}}</Span>
                 </div>
-    {{/if}}
+            {{/if}}
     
 
      <main>  
@@ -10,15 +10,17 @@
 
             <div class="sidebar">
                 <div class="top">
+                  <div class="profile-img">
                     <i class="fa-solid fa-user"></i>
-                    <h1>Pranil Shrestha</h1>
+                  </div>
+                    <h1>{{id.applicant_name}}</h1>
                 </div>
         
                 <div class="item">
                     <ul>
                         <li><a href="/applicant/jobs">Dashboard</a></li>
-                        <li><a href="/applicant/profile">Profile</a></li>
-                        <li><a href="">Track Application Status</a></li>
+                        <li><a href="/applicant/profile/{{id.applicant_id}}">Profile</a></li>
+                        <li><a href="/applicant/trackStatus">Track Status</a></li>
                     </ul>
                     <form action="/applicantlogout?_method=DELETE" method="post">
                     <button>Logout</button>
@@ -56,7 +58,11 @@
                             <span> <i class="fa-solid fa-list-check"></i> Skills: {{des.skillsreq}}</span>
                             <span> <i class="fa-solid fa-indian-rupee-sign"></i> Salary: {{des.salary}}</span>
                             <span> <i class="fa-solid fa-location-dot"></i> {{des.job_location}} </span>
-                            <button type="button">Apply</button>
+
+                            {{#if isApplied}} <a href="/applicant/trackStatus">Track Your Application</a> 
+                                {{else}}
+                                 <form action="/applicant/apply/{{applicant.applicant_id}}/{{des.job_id}}" method="get"> <button>Apply</button>  </form> <!--BUTTON TO APPLY FOR JOBS-->
+                            {{/if}}
                         </div>
 
                     <div class="additional-info">

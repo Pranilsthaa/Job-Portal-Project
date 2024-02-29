@@ -9,4 +9,12 @@ function removeFile(filename){
    })
 }
 
-module.exports = { removeFile }
+function removeApplicantFile(filename){
+   const paths = path.join(__dirname, '../public/applicantResume/', filename);
+   fs.unlink(paths, function(err) {
+        if(err) return console.log(err);
+        console.log('Local resume deleted successfully')
+   })
+}
+
+module.exports = { removeFile, removeApplicantFile }
