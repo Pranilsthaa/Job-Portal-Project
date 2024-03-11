@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    font-family: 'poppins';
+}
+
+
+/* .hero{
+    margin: auto;
+} */
+
+#container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 100px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: calc(100vh - 150px);
+}
+
+.company-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    box-shadow: 1px 2px 4px black;
+}
+
+.company-info a{
+    text-decoration: none;
+    color: black;
+}
+
+.company-info a:hover img{
+    border-radius: 10px;
+}
+
+.company-info .company{
+    display: flex;
+    height: 120px;
+    padding: 15px;
+    gap: 20px;
+}
+
+
+.company-info .company h2{
+    font-size: 16px;
+    color:grey;
+}
+
+.company-info .company img{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: 0.5s ease-in;
+}
+
+
+
+.company-job-info{
+    padding: 10px;
+    color: white;
+    width: 500px;
+    box-shadow: 0px 2px 4px black;
+}
+

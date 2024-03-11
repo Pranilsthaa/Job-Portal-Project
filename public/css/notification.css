@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+}
+
+#notification{
+    border-radius: 20px;
+    position: relative;  
+    margin: 100px auto ;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: 620px;
+    gap: 50px;
+    width: 950px;
+    padding: 40px;
+    background: #fcfafa;
+    box-shadow:  26px 26px 69px #bebebe,
+             -26px -26px 69px #ffffff;
+}
+
+#notification img{
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+#notification .container span{
+    font-family: 'poppins';
+    
+}
+
+#notification .container{
+    border-radius: 8px;
+    margin: 0;   
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 300px;
+    padding-top: 25px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.31);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#notification .container .name{
+    font-size: 24px;
+    line-height: 10px;
+}
+
+#notification .container .email{
+    font-size: 14px;
+    color:#8f949a;
+}
+
+#notification .container .address{
+    font-size: 16px;
+}
+
+#notification .container .phone{
+    font-size: 16px;
+}
+
+.pranil{
+    position: absolute;
+}
+
+#buttons{
+    margin-top: 10px;
+}
+
+#notification h2{
+    font-size: 50px;
+    color:#8f949a;
+}

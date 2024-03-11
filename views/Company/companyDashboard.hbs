@@ -68,7 +68,15 @@
                   {{/each}}
                 </tbody>
               </table>
-
+                   <div id="pagination">
+                
+                  <a href="/admin/applicant?page={{prev currentPage}}">Previous</a>
+                  {{#each (pagination totalPage)}}
+                  <a href="/admin/applicant?page={{this}}">{{this}}</a>
+                  {{/each}}
+                  <a href="/admin/applicant?page={{next currentPage totalPage}}">Next</a>
+                
+                </div>
 
 <!-- Modal -->
 

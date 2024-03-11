@@ -58,14 +58,7 @@
                 </div>
 
            {{#if isAuth}}       {{!--If Authenticated Show The Login And Register Btns --}}
-                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Login </button>
-                    <ul class="dropdown-menu">
-                         <li><a href="/companyLogin"><i class="fa-solid fa-building"></i>Company Login</a></li>
-                    </ul>
-                </div>
+        
             {{else}}            {{!--If Not Authenticated Hide The Register Btns --}}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -105,3 +98,4 @@
 </body>
 
 </html>
+

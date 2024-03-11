@@ -30,9 +30,52 @@ function checkProgress(value){
     }
 }
 
+function checkAdmin(value){
+    if(value=='admin'){
+        return true;
+    }
+    return false;
+}
+
+function pagination(totalPage){
+    let arr=[];
+    for (i=1 ; i<=totalPage; i++){
+         arr.push(i);
+    }
+    return arr;
+}
+
+function prev(value){
+    let intValue = parseInt(value)
+    if(value == 1){
+        return 1;
+    }
+    return intValue - 1;
+}
+
+function next(value, totalPage){
+    let currentPage = parseInt(value)
+    if(currentPage == totalPage){
+        return totalPage;
+    }
+    return currentPage + 1;
+}
+
+function indexInc(value, cPage){
+    let indexValue = parseInt(value)
+    let currentPage = parseInt(cPage)
+
+    return (indexValue + 1) + (currentPage - 1) * 10;
+}
+
 
 module.exports = {
     inc,
     formatDate,
-    checkProgress
+    checkProgress,
+    checkAdmin,
+    pagination,
+    prev,
+    next,
+    indexInc
 }

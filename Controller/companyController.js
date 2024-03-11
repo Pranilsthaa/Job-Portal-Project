@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const initialize = require('../Auth/passport-config-company')
 const passport = require('passport')
 const { removeFile } = require('../middleware/removeFile')
-
+const mail = require('../Nodemailer/nodemailer-config');
 const loginCompany = (req, res) =>  {
     res.render('Authentication/login', {isApplicant : false})
 }
@@ -95,6 +95,9 @@ const respondToApplication = async (req, res) => {
             const status = req.params.status;
             const id = req.params.id;
             const data = await applicationModel.changeApplicationStatus(status,id);
+
+            const applicantEmail = await applicationModel.getApplicantEmailByApplicationID(id);
+            mail.main(applicantEmail[0].applicant_email, 'Applicantion Status', `Your Application has been ${status} by the company`); //calling nodemailer function
             return res.redirect('/company/applicants')
     }
 
@@ -147,20 +150,44 @@ const getData = async (req, res, next) => {
 
     //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
-    function checkAuthenticated(req, res, next) {
+    // function checkAuthenticated(req, res, next) {   // Protecting Route
+    //     if (req.isAuthenticated()) {
+    //         if (req.user.role === 'company') {
+    //             return next();
+    //         } else {
+    //             return res.status(403).send('Only One Session Per User');
+    //         }
+    //     }
+    // }
+    
+    function checkAuthenticated(req, res, next) {   // Protecting Route
         if (req.isAuthenticated()) {
-            return next()
+            if (req.user.role == 'company') {
+                if (req.user.isVerified) {
+
+                    return next();
+                } else {
+                    return res.send('waiting_for_approval');
+                }
+            } else {
+                return res.status(403).send('Only companies can access this route');
+            }
+        } else {
+            return res.redirect('/companyLogin');
         }
-        res.redirect('/companyLogin')
+    }
+    
+    function checkNotAuthenticated(req, res, next) {       
+        if (req.isAuthenticated()) {
+            if (req.user.role === 'company') {
+               res.redirect('/company/dashboard')
+            } else {
+                return res.status(403).send('Only One Session Per User');
+            }
+        }
+            next();
     }
 
-    function checkNotAuthenticated(req, res, next) {
-        
-        if (req.isAuthenticated()) {
-            return res.redirect('/company/dashboard')
-        }
-        next()
-    }
 
 // UpdateProfileWithoutImg
     const updateProfile = async (req, res) => {
@@ -192,7 +219,7 @@ const getData = async (req, res, next) => {
     }
 
     const logout = (req, res) => {
-        req.logOut((err)=>{
+        req.logout((err)=>{
                 if(err){
                     return next(err)
                 }

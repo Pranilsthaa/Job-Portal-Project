@@ -36,7 +36,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                   {{log applicationInfo}}
+                   
                   {{#each applicationInfo}}
                  
                     <tr>
@@ -51,46 +51,53 @@
                         <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal">Accept</button></td>
                         <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button></td>
                         
+                            <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Are you Sure you want to accept the application?
+                              </div>
+                              <div class="modal-footer">
+                                {{log application_id}}
+                                <button type="button" class="btn btn-success" onclick="window.location.href='/company/applicants/accepted/{{application_id}}'">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                              </div>
+                            </div>
+                          </div>
+                             </div>
+                            <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are you Sure you want to reject the application?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/company/applicants/rejected/{{application_id}}'">Yes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                  </div>
+                                </div>
+                              </div>
+                        
+                            </div>
+
                       {{else}}
                         <td><strong>{{Progress}}</strong></td>
                       {{/if}}
                        <td><a href="/static/applicantResume/{{applicant_resume}}" target="_blank">{{#if applicant_resume}}Show Resume{{/if}}</a></td> 
+                       
+                      
+
                     </tr>
                     
-                    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          Are you Sure you want to accept the application?
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-success" onclick="window.location.href='/company/applicants/accepted/{{application_id}}'">Yes</button>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          Are you Sure you want to reject the application?
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-danger" onclick="window.location.href='/company/applicants/rejected/{{application_id}}'">Yes</button>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                 
 
                   {{/each}}
                 </tbody>

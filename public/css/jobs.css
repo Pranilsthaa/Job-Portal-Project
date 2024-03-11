@@ -38,11 +38,11 @@
 }
 
 .sidebar .profile-img{
-    background-color: #7b9fc1;
+    background-color: #2a2525;
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    
+    color: rgb(255, 255, 255);
 }
 
 .sidebar i {
@@ -227,8 +227,6 @@
     font-size: 15px;
 }
 
-
-
 .job-description .job-info-container button:active{
     background-color: #122335;
 }
@@ -267,17 +265,6 @@
     background-color: #ededf4;
 }
 
-/* .card-container{
-    display: flex;
-    flex-direction: column;
-}
-
-.card-container .cards{
-    height: 200px;
-    width: 200px;
-    background-color: #004e96;
-} */
-
 .bg-card{
     padding:20px;
     user-select: none;
@@ -288,9 +275,15 @@
     border: 1px solid grey;
     padding:5px;
     border-radius: 10px;
-    width:108px;
+    width: fit-content;
     text-transform: capitalize;
     font-family: 'poppins';
     margin: auto;
     
+}
+
+#pagination a {
+    background-color: #240A34;
+    padding: 10px;
+    text-decoration: none;
 }

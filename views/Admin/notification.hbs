@@ -1,0 +1,44 @@
+
+
+<div id="notification">
+
+    <h1>Companies Waiting To be Verified</h1>
+    {{#if data}}
+    {{#each data}}
+
+        <div class="pranil">
+            <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Authenticate this company?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='/admin/verifycompany/{{company_id}}'" >Yes</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    <div class="container">
+        <img src="/static/companyLogos/{{company_logo}}" alt="" width="100px" height="100px">
+        <span class="name">{{company_name}}</span>
+        <span class="email">{{company_email}}</span>
+        <span class="address">{{company_address}}</span>
+        <span class="phone">{{company_phone}}</span>
+        <div id="buttons">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal">Verify</button>
+        </div>
+    </div>
+
+    {{/each}}
+    {{else}}
+    <h2>No Companies</h2>
+    {{/if}}
+</div>

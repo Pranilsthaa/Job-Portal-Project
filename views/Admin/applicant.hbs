@@ -1,0 +1,38 @@
+<div class="hero-admin">
+<table class="table caption-top">
+                <caption>JOB LISTINGS</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">S.N</th>
+                    <th scope="col">Applicant Name</th>
+                    <th scope="col">Applicant Email</th>
+                    <th scope="col">Job Applied</th>
+                    <th scope="col" colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {{#each data}}
+                  <tr>
+                    <th scope="row">{{indexInc @index ../currentPage}}</th>
+                    <td>{{applicant_name}}</td>
+                    <td>{{applicant_email}}</td>
+                    <td>random, random</td>
+                    
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Terminate</button></td>                    
+                  </tr>
+                 {{/each}}
+            
+                </tbody>
+               
+              </table>
+                  <div id="pagination">
+                
+                  <a href="/admin/applicant?page={{prev currentPage}}">Previous</a>
+                  {{#each (pagination totalPage)}}
+                  <a href="/admin/applicant?page={{this}}">{{this}}</a>
+                  {{/each}}
+                  <a href="/admin/applicant?page={{next currentPage totalPage}}">Next</a>
+                
+                </div>
+                  
+</div>

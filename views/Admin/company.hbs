@@ -1,0 +1,46 @@
+<div class="hero">
+    <div id="container">
+        <div class="company-info">
+                 {{#each data}}  
+                 <a href="/admin/company/{{company_id}}">  
+                    <div class="company">
+                        <div class="img-con">
+                            <img src="/static/companyLogos/{{company_logo}}" alt="">
+                        </div>
+                        <div class="info">
+                            <h1>{{company_name}}</h1>
+                            <h2>{{company_email}}</h2>
+                            <h3>{{company_address}}</h3>
+                        </div>
+                    </div>
+                 </a>   
+            <hr>
+                 {{/each}}
+        </div>
+                <div class="company-job-info">
+                        <table class="table caption-top">
+                        <caption>JOB POSTED</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Posted Date</th>
+                            <th scope="col">Job Title</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {{#each info}}
+                        <tr>
+                            <td scope="row">{{inc @index}}</th>
+                            <td>{{dateposted}}</td>
+                            <td>{{job_title}}</td>
+                            <td>{{job_location}}</td>          
+                            <td>{{job_description}}</td>     
+                        </tr>    
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ applicantRoute.post('/profile/:id',upload.single('applicant_resume'), applicant_
 
 applicantRoute.get('/apply/:app_id/:job_id', applicant_controller.applyApplicant)
 
-applicantRoute.get('/trackStatus', applicant_controller.getTrackStatus) 
+applicantRoute.get('/trackStatus',applicant_controller.checkAuthenticated, applicant_controller.getTrackStatus) 
 
 
 module.exports = {applicantRoute}

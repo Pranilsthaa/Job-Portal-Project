@@ -1,0 +1,44 @@
+
+            {{#if messages.loginSuccess}}
+                <div class="auto-close alert alert-success" id="success-msg">
+                    <Span>{{ messages.loginSuccess }}</Span>
+                </div>
+            {{/if}}
+
+
+<div class="admin-container">
+
+    <div class="admin-card first"> 
+        <div id="card-header">
+            <i class="fa fa-users"></i>
+            <p>Total Applicant</p>
+            <h1>{{applicants}}</h1>
+        </div>  
+    </div>
+
+
+
+ <div class="admin-card second">
+        <div id="card-header">
+            <i class="fa-solid fa-paper-plane"></i>
+             <p>Total Application</p>
+             <h1>{{applications}}</h1>
+        </div>  
+    </div>
+        
+    <div class="admin-card third">
+           <div id="card-header">
+            <i class="fa-solid fa-building"></i>
+             <p>No. of Company</p>
+            <h1>{{companies}}</h1>
+        </div> 
+    </div>
+
+    <div class="admin-card fourth">
+        <div id="card-header">
+            <i class="fa-solid fa-briefcase"></i>
+             <p>Total Job Posted</p>
+             <h1>{{jobs}}</h1>
+        </div>    
+    </div>
+</div>

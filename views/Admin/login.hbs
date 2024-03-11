@@ -1,0 +1,19 @@
+<form action="/admin" method="post" id="login_form">
+    {{#if messages.error}}
+                <div class="auto-close alert alert-danger">
+                    {{messages.error}}
+                </div>
+    {{/if}}
+<div class="input-group">           
+            <input type="text" id="username" name="username" required/>
+            <label for="email">Username</label>
+        </div>
+
+        <div class="input-group">       
+            <input type="password" id="password" name="password" required/> 
+            <label for="password">Password</label> 
+            <i class="fa-regular fa-eye-slash" id="icon"></i>
+            
+        </div>
+ <button> Login </button>
+</form>

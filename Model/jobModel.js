@@ -16,6 +16,20 @@ function addJobModel(values, id){
     })
 }
 
+function getJobsbyCompanyID(id){
+    return new Promise((resolve, reject)=> {
+        connection.query(`SELECT * FROM jobs where company_id= ?`, [id],
+         (error, result)=>{
+            if(error){
+                console.log(error)
+                reject(error)
+            }
+            else{
+                resolve(result)
+            }
+        })
+    })
+}
 
 function getJobDetail(){
     return new Promise((resolve, reject)=> {
@@ -173,7 +187,8 @@ module.exports = {
     deleteJob,
     applyJob,
     getApplicationDetailByID,
-    hasUserAppliedForJob
+    hasUserAppliedForJob,
+    getJobsbyCompanyID
 }
 
 

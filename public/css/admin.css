@@ -1,0 +1,90 @@
+/* .hero-admin{
+    position: relative;
+    margin: auto;
+} */
+
+/* .hero-admin table{
+    width: 80%;
+    left: 400px;
+} */
+
+/* *{
+    border: 1px solid black;
+} */
+
+.hero-admin{
+    height: calc(100vh - 100px);
+}
+ .hero-admin table{
+    margin: 40px auto;
+    width: 80%;
+ }
+
+ #sidebar{
+    z-index: 999;
+ }
+
+.admin-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+
+ .admin-card{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+ }
+
+ #card-header{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 200px;
+    width: 300px;
+ }
+
+ .admin-card i{
+    font-size: 50px;
+    margin: auto;
+ }
+
+ .admin-card p{
+    margin: 50px auto;
+    font-size: 16px;
+ }
+ 
+.admin-card.first {
+    background-color: #240A34; 
+    color: white;
+}
+
+.admin-card.second {
+    background-color: #891652;
+    color: white;
+}
+
+.admin-card.third {
+    background-color: #EABE6C;
+    color: white;
+}
+
+.admin-card.fourth {
+    background-color: #daa161;
+    color: white;
+}
+
+#pagination{
+    position: absolute;
+    height: 20px;
+    margin-top: -26px;
+    left: 10%;
+}
+
+#pagination a {
+    background-color: #240A34;
+    padding: 10px;
+    text-decoration: none;
+}

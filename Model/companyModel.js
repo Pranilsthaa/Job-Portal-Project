@@ -158,7 +158,6 @@ function getApplicationInfo(id){
                 return reject(error);
             }
             else{
-                console.log(result);
                 return resolve(result)
             }
         })
@@ -166,8 +165,35 @@ function getApplicationInfo(id){
 }
 
 
+function getUnverifiedCompany(){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT * FROM company_detail where isVerified=?`, ['false'],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
 
-
+function verifycompany(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`UPDATE company_detail
+                          SET isVerified = true
+                          WHERE company_id =?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
 module.exports = {
     registerCompany,
     getCompanyDetail,
@@ -177,5 +203,7 @@ module.exports = {
     updateProfileWithoutImg,
     getJobListedByCompany,
     getApplicationInfo,
-    getApplicantCount
+    getApplicantCount,
+    getUnverifiedCompany,
+    verifycompany
 }

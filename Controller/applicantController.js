@@ -51,7 +51,7 @@ const getData = async (req, res, next) => {
         try {
             const id = req.params.id;
             let data = await applicantModel.getApplicantDetailByID(id)
-            res.render('Applicant/applicantProfile', {data: req.user, info: data[0], id: req.user});   
+            res.render('Applicant/applicantProfile', {data: req.user, info: data[0], id: req.user, isAuth: req.isAuthenticated()});   
         } catch (error) {
             console.log(error);
         }
@@ -104,7 +104,7 @@ const getData = async (req, res, next) => {
         try {
             let data = await applicationModel.getApplicationByID(req.user.applicant_id);
             
-            res.render('Applicant/trackStatus', {data: data, id: req.user}) 
+            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated()}) 
          
         } catch (error) {
             console.log(error);
@@ -113,25 +113,35 @@ const getData = async (req, res, next) => {
 
 //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
-    function checkAuthenticated(req, res, next) {
+    function checkAuthenticated(req, res, next) {    // ROUTE PROTECTION
         if (req.isAuthenticated()) {
-            return next()
+            if (req.user.role === 'job-seeker') {
+                return next();
+            } else {
+                return res.status(403).send('Only One Session Per User');
+            }
+     
         }
-        res.redirect('/userLogin')
+
     }
 
+   
     function checkNotAuthenticated(req, res, next) {
         
         if (req.isAuthenticated()) {
-            return res.redirect('/jobs')
+            if (req.user.role === 'job-seeker') {
+               res.redirect('/applicant/jobs')
+            } else {
+                return res.status(403).send('Only One Session Per User');
+            }
         }
-        next()
+            next()
     }
 
 //------------------------------------------------------Logout
 
     const logout = (req, res) => {
-        req.logOut((err)=>{
+        req.logout((err)=>{
                 if(err){
                     return next(err)
                 }

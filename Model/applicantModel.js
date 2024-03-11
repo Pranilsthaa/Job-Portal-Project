@@ -32,6 +32,22 @@ function getApplicantDetail() {
     });
 }
 
+function getApplicantDetailPaginated(currentPage, pageLimit) {
+    const offset = parseInt((currentPage - 1) * pageLimit);
+    return new Promise ((resolve, reject) => { 
+        connection.query('SELECT * FROM applicant_detail LIMIT ?, ?', [offset, pageLimit],
+     (error, result) => {
+        if (error) {
+            return reject(error);
+        }
+        else{
+            return resolve(result);
+     
+        }
+    })
+    });
+}
+
 function getApplicantDetailByID(id) {
     return new Promise ((resolve, reject) => { 
         connection.query('SELECT * FROM applicant_detail where applicant_id=?', [id],
@@ -103,7 +119,8 @@ module.exports = {
     getApplicantDetailByID,
     getImageURL,
     updateApplicantProfile,
-    updateProfileWithoutImg
+    updateProfileWithoutImg,
+    getApplicantDetailPaginated
 }
 
 
