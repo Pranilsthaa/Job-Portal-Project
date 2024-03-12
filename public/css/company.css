@@ -1,6 +1,5 @@
 .hero{ 
     position: absolute;
-    margin-top: 20px;
     width: calc(100% - 250px);
     left: 250px;
 }
@@ -20,8 +19,6 @@
 .hero-profile caption{
     font-size: 30px;
 }
-
-
 
 .company-sidebar{
     position: fixed;

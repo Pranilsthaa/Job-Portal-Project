@@ -57,7 +57,7 @@
                 </ul>
                 </div>
 
-           {{#if isAuth}}       {{!--If Authenticated Show The Login And Register Btns --}}
+           {{#if (checkAuth isAuth companyAuth)}}       {{!--If Authenticated Show The Login And Register Btns --}}
         
             {{else}}            {{!--If Not Authenticated Hide The Register Btns --}}
                 <div class="dropdown">
@@ -88,10 +88,6 @@
     {{{body}}}
 
    
-
-
-
-
 <script src="/static/js/auto-close.js"></script>
 <script src="/static/js/icon.js"></script>
 <script src="/static/js/multi-step-form.js"></script>

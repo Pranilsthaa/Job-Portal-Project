@@ -95,13 +95,14 @@ return new Promise ((resolve, reject) => {
 }
 
 
-function getJobListedByCompany(id){
+function getJobListedByCompany(id, offset, limit){
+    console.log(offset, limit)
     return new Promise((resolve, reject)=>{
         connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
                           jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted, company_detail.company_name
                           FROM jobs
                           INNER JOIN company_detail ON jobs.company_id = company_detail.company_id
-                          WHERE company_detail.company_id =?;`, [id],
+                          WHERE company_detail.company_id =? LIMIT ?, ?;`, [id, offset, limit],
         (error, result) => {
             if(error){
                 return reject(error);
@@ -182,8 +183,8 @@ function getUnverifiedCompany(){
 function verifycompany(id){
     return new Promise((resolve, reject)=>{
         connection.query(`UPDATE company_detail
-                          SET isVerified = true
-                          WHERE company_id =?;`, [id],
+        SET isVerified = true
+        WHERE company_id =?;`, [id],
         (error, result) => {
             if(error){
                 return reject(error);
@@ -194,6 +195,23 @@ function verifycompany(id){
         })
     })
 }
+
+function getTotalJobListingByCompany(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`SELECT COUNT(*) AS job_count
+                          FROM jobs
+                          WHERE company_id = ?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
+
 module.exports = {
     registerCompany,
     getCompanyDetail,
@@ -205,5 +223,6 @@ module.exports = {
     getApplicationInfo,
     getApplicantCount,
     getUnverifiedCompany,
-    verifycompany
+    verifycompany,
+    getTotalJobListingByCompany
 }

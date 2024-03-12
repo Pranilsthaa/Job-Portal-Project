@@ -16,22 +16,35 @@ const getRegisterCompanyForm = (req, res) =>  {
 
 const companyDashboard = async (req, res) =>  {
     try{
-         const id = req.user.company_id;
-         let jobList = await companyModel.getJobListedByCompany(id);
-         let applicantCount = await companyModel.getApplicantCount(req.user.company_id)
-        
+        const id = req.user.company_id;
+        const limit = 8;
+        let page = req.query.page || 1;
+        let offset = parseInt((page - 1) * limit);
+
+        let jobList = await companyModel.getJobListedByCompany(id, offset, limit);
+        let applicantCount = await companyModel.getApplicantCount(req.user.company_id);
+        let JobListing = await companyModel.getTotalJobListingByCompany(id);
+        let JobListingCount = JobListing[0].job_count;
+
+        let totalPage = Math.ceil(JobListingCount / limit);
+
         let newjobList = jobList.map((job, index) => ({
             ...job,
             applicantCount: applicantCount[index].applicantCount || 0 
         }));
-         res.render('Company/companyDashboard', {data: req.user, joblist: newjobList, applicantCount: applicantCount})
+         res.render('Company/companyDashboard', {data: req.user, joblist: newjobList,
+                                                applicantCount: applicantCount,
+                                                totalPage: totalPage,
+                                                currentPage: page,
+                                                companyAuth: req.isAuthenticated()
+                                                })
     }catch(error){
         console.log(error);
     }
 }
 
 const getPostJobForm = (req, res) =>  {
-    res.render('Company/postJobs', {data: req.user})
+    res.render('Company/postJobs', {data: req.user, companyAuth: req.isAuthenticated()})
 }
 
 const postJob = async (req, res) =>  {
@@ -84,7 +97,7 @@ const deleteJob = async (req, res) =>  {
 const getJobApplicant = async(req, res) =>  {
     try{
         let data = await companyModel.getApplicationInfo(req.user.company_id);
-        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data})
+        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data, companyAuth: req.isAuthenticated()})
     }catch(error){
         console.log(error);
     }
@@ -112,7 +125,7 @@ const getProfileForm = async (req, res) =>  {
         const id = req.params.id;
         const company = await companyModel.getCompanyDetailByID(id)
         
-        res.render('Company/companyProfile', {company: company[0], data: req.user})
+        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated()})
     }catch(error){
         console.log(error)
     }

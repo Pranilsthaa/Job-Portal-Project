@@ -41,7 +41,7 @@
                 <tbody>
                   {{#each joblist}}
                   <tr>
-                    <th scope="row">{{inc @index}}</th>
+                    <th scope="row">{{indexInc @index ../currentPage 8}}</th>
                     <td>{{formatDate dateposted}}</td>
                     <td>{{job_title}}</td>
                     <td>{{applicantCount}}</td>
@@ -70,11 +70,11 @@
               </table>
                    <div id="pagination">
                 
-                  <a href="/admin/applicant?page={{prev currentPage}}">Previous</a>
+                  <a href="/company/dashboard?page={{prev currentPage}}">Previous</a>
                   {{#each (pagination totalPage)}}
-                  <a href="/admin/applicant?page={{this}}">{{this}}</a>
+                  <a href="/company/dashboard?page={{this}}">{{this}}</a>
                   {{/each}}
-                  <a href="/admin/applicant?page={{next currentPage totalPage}}">Next</a>
+                  <a href="/company/dashboard?page={{next currentPage totalPage}}">Next</a>
                 
                 </div>
 

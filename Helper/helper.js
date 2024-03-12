@@ -61,11 +61,18 @@ function next(value, totalPage){
     return currentPage + 1;
 }
 
-function indexInc(value, cPage){
-    let indexValue = parseInt(value)
-    let currentPage = parseInt(cPage)
+function indexInc(value, cPage, limit){
+    let indexValue = parseInt(value);
+    let currentPage = parseInt(cPage);
+    let limitValue = parseInt(limit);
+    return (indexValue + 1) + (currentPage - 1) * limitValue;
+}
 
-    return (indexValue + 1) + (currentPage - 1) * 10;
+function checkAuth (applicant, company){
+    if(applicant == true || company == true){
+        return true;
+    }
+    return false;
 }
 
 
@@ -77,5 +84,6 @@ module.exports = {
     pagination,
     prev,
     next,
-    indexInc
+    indexInc,
+    checkAuth
 }
