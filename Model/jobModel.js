@@ -31,12 +31,14 @@ function getJobsbyCompanyID(id){
     })
 }
 
-function getJobDetail(){
+function getJobDetail(searchQuery){
     return new Promise((resolve, reject)=> {
         connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
-                          jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted,company_detail.company_logo, company_detail.company_name
+                          jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted,
+                          company_detail.company_logo, company_detail.company_name
                           FROM jobs
-                          INNER JOIN company_detail ON jobs.company_id = company_detail.company_id`,
+                          INNER JOIN company_detail ON jobs.company_id = company_detail.company_id
+                          WHERE jobs.job_title LIKE '%${searchQuery}%' OR jobs.job_location LIKE '%${searchQuery}%' OR company_detail.company_name LIKE '%${searchQuery}%';`,
          (error, result)=>{
             if(error){
                 console.log(error)

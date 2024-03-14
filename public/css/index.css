@@ -29,6 +29,27 @@ nav ul{
     gap: 40px;
 }
 
+#search{
+   height: 40px;
+   width: 220px;
+   padding-left: 10px;
+   border-radius: 10px;
+   outline: none;
+   border: 1px solid black;
+   }
+   
+#search::placeholder{
+       color: rgb(0, 0, 0);
+   }
+   
+#form button{
+       height: 40px;
+       width: 100px;
+       border: none;
+       border-radius: 10px;
+       outline: none;
+   }
+
 
 nav ul li a{
     display: flex;

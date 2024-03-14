@@ -50,14 +50,14 @@ const getData = (req, res, next) => {
     const getApplicants = async (req, res) => {
         try{
             let page = req.query.page || 1;
-
-            let data = await applicantModel.getApplicantDetailPaginated(page, 10);
+            let searchQuery = req.query.name || '';
+            let data = await applicantModel.getApplicantDetailPaginated(page, 10, searchQuery);
             let userData = await applicationModel.getUserData();
             let totalAppliants = parseInt(userData[0][0].total_applicants);
 
             let totalPage = Math.ceil(totalAppliants / 10);
 
-            res.render('Admin/applicant', {layout: 'admin', user: req.user.role, data: data, totalPage: totalPage, currentPage: page})
+            res.render('Admin/applicant', {layout: 'admin', user: req.user.role, data: data, totalPage: totalPage, currentPage: page, applicantPage: true})
         }catch(error){
             console.log(error)
         }

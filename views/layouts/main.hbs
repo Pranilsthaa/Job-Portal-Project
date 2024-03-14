@@ -22,6 +22,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <link
         href="https://fonts.googleapis.com/css2?family=Lato&family=Nova+Square&family=Poppins&family=Roboto&display=swap"
         rel="stylesheet">
@@ -51,7 +55,14 @@
 
             <div class="items">          
                 <div class="list">
-                <ul>              
+      
+                <ul>       
+                    {{#if jobPage}} 
+                    <form id="form" method="get">       {{!-- search feature --}}
+                        <input type="text" id="search" placeholder="Search Jobs" name="name" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Using Job Title, Location or Company" />
+                        <button type="submit"><i class="bx bx-search">Search</i></button>
+                    </form>         
+                    {{/if}}
                     <li><a href="#"><i class="fa-solid fa-gears"></i>Admin</a></li>
                     <li><a href="/applicant/jobs"><i class="fa-solid fa-suitcase"></i>Jobs</a></li>
                 </ul>
@@ -91,6 +102,7 @@
 <script src="/static/js/auto-close.js"></script>
 <script src="/static/js/icon.js"></script>
 <script src="/static/js/multi-step-form.js"></script>
+
 </body>
 
 </html>

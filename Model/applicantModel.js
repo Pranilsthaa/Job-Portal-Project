@@ -32,10 +32,11 @@ function getApplicantDetail() {
     });
 }
 
-function getApplicantDetailPaginated(currentPage, pageLimit) {
+function getApplicantDetailPaginated(currentPage, pageLimit, searchQuery) {
     const offset = parseInt((currentPage - 1) * pageLimit);
+    const query = `SELECT * FROM applicant_detail WHERE applicant_name LIKE '%${searchQuery}%' LIMIT ?, ?`;
     return new Promise ((resolve, reject) => { 
-        connection.query('SELECT * FROM applicant_detail LIMIT ?, ?', [offset, pageLimit],
+        connection.query(query, [offset, pageLimit],
      (error, result) => {
         if (error) {
             return reject(error);

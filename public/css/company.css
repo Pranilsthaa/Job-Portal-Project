@@ -34,8 +34,10 @@
 }
 
 
-.company-sidebar i {
-    font-size: 50px;
+.company-sidebar img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
 }
 
 .company-sidebar h1{

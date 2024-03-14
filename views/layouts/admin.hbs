@@ -38,11 +38,21 @@
         <i class="bx bx-menu menu-icon"></i>
         <span class="logo-name">Admin Page</span>
       </div>
+      {{#if applicantPage}}
+      <form id="form" method="get">
+        <input type="text" id="search" placeholder="Search for applicants" name="name"/>
+        <button type="submit"><i class="bx bx-search">Search</i></button>
+      </form>        
+        {{/if}}
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
           <span class="logo-name">Admin</span>
+           
         </div>
+        
+       
+        
 
         <div class="sidebar-content">
           <ul class="lists">

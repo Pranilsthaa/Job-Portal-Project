@@ -88,3 +88,29 @@
     padding: 10px;
     text-decoration: none;
 }
+
+#form{
+ position: absolute;
+ right: 20%;
+}
+
+#search{
+height: 40px;
+width: 200px;
+padding-left: 10px;
+border-radius: 10px;
+outline: none;
+border: 1px solid black;
+}
+
+#search::placeholder{
+    color: rgb(0, 0, 0);
+}
+
+#form button{
+    height: 40px;
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}

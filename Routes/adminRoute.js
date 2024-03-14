@@ -16,6 +16,7 @@ adminRoute.get('/notification', adminController.getnotification)
 adminRoute.get('/verifycompany/:id', adminController.verifycompany)  
 
 
+
 // adminRoute.get('/destroy', (req, res)=> {
 //         res.clearCookie('sid');
 //         // req._destroy();

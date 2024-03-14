@@ -96,7 +96,7 @@ return new Promise ((resolve, reject) => {
 
 
 function getJobListedByCompany(id, offset, limit){
-    console.log(offset, limit)
+
     return new Promise((resolve, reject)=>{
         connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
                           jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted, company_detail.company_name

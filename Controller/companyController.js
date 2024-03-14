@@ -176,12 +176,7 @@ const getData = async (req, res, next) => {
     function checkAuthenticated(req, res, next) {   // Protecting Route
         if (req.isAuthenticated()) {
             if (req.user.role == 'company') {
-                if (req.user.isVerified) {
-
-                    return next();
-                } else {
-                    return res.send('waiting_for_approval');
-                }
+              return next();
             } else {
                 return res.status(403).send('Only companies can access this route');
             }
@@ -201,6 +196,16 @@ const getData = async (req, res, next) => {
             next();
     }
 
+
+    const checkCompanyVerification = (req, res) => {
+        if(req.user.isVerfied){
+            return next();
+        }
+        else{
+            req.flash('error', 'Your company is not verified yet');
+            res.redirect('/company/postJobs')
+        }
+    }
 
 // UpdateProfileWithoutImg
     const updateProfile = async (req, res) => {
@@ -261,6 +266,7 @@ module.exports={
     getEditJobForm,
     updateJobDetail,
     deleteJob,
-    respondToApplication
+    respondToApplication,
+    checkCompanyVerification
 }
 

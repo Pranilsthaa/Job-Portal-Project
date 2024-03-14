@@ -1,7 +1,7 @@
  <div class="company-sidebar">
         <div class="top">
-            <i class="fa-solid fa-house-laptop"></i>
-            <h1>{{data.company_name}}</h1>
+            <img src="/static/companyLogos/{{data.company_logo}}" alt="">
+            <h1>{{data.company_name}} <span style="font-size: 12px;">({{#if data.isVerified}}Verified {{else}} Not Verified {{/if}})</span> </h1>
         </div>
 
         <div class="item">
