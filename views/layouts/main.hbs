@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{page}}</title>
+
+    <link rel="icon" href="/static/images/favicon/favicon-16x16.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/static/public/images/favicon/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/static/public/images/favicon/android-chrome-512x512.png" type="image/png" sizes="512x512">
+
     
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/login.css">
@@ -43,7 +48,35 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<style>
+        /* width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #888; 
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555; 
+        }
+        </style>
 
+<script>
+    window.addEventListener('load', () => {
+        const scrollContainer = document.querySelector('.job-container');
+        const scrollPos = {{scrollPos}};
+        scrollContainer.scrollTop = scrollPos;
+    });
+</script>
 <body>
 
     <div class="nav-container">
@@ -63,7 +96,7 @@
                         <button type="submit"><i class="bx bx-search">Search</i></button>
                     </form>         
                     {{/if}}
-                    <li><a href="#"><i class="fa-solid fa-gears"></i>Admin</a></li>
+                    <li><a href="/admin"><i class="fa-solid fa-gears"></i>Admin</a></li>
                     <li><a href="/applicant/jobs"><i class="fa-solid fa-suitcase"></i>Jobs</a></li>
                 </ul>
                 </div>
@@ -103,6 +136,20 @@
 <script src="/static/js/icon.js"></script>
 <script src="/static/js/multi-step-form.js"></script>
 
+<script>
+        const jobLinks = document.querySelectorAll('.job-link');
+        const scrollContainer = document.querySelector('.job-container');
+        
+        jobLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetUrl = event.currentTarget.href;
+            const scrollPosition = scrollContainer.scrollTop;
+            const urlWithScroll = `${targetUrl}?scrollPos=${scrollPosition}`;
+            window.location.href = urlWithScroll;
+            });
+        });
+</script>
 </body>
 
 </html>

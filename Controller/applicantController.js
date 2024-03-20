@@ -50,39 +50,41 @@ const getData = async (req, res, next) => {
     const getProfileForm = async (req, res) =>{
         try {
             const id = req.params.id;
-            let data = await applicantModel.getApplicantDetailByID(id)
-            res.render('Applicant/applicantProfile', {data: req.user, info: data[0], id: req.user, isAuth: req.isAuthenticated()});   
+            let data = await applicantModel.getApplicantDetailByID(id);
+            res.render('Applicant/applicantProfile', {data: req.user, info: data[0], id: req.user, isAuth: req.isAuthenticated(), page: "Profile"});   
         } catch (error) {
             console.log(error);
         }
     }
     const updateApplicantProfile = async (req, res) => {
         let cvSRC;
-        try{
-            let file = req.file;
+      
+        try {
             const id = req.params.id;
             const values = req.body;
-            if(file){
-                 cvSRC = req.file.filename;
-                const data = await applicantModel.getImageURL(id);
-                if (data.length > 0) {
-                    await applicantModel.updateApplicantProfile(values, id, cvSRC);
-                    removeApplicantFile(data[0].applicant_resume)
-                }
-                req.flash('success', 'Updated Successfully')
-                return res.redirect(`/applicant/profile/${id}`)
+
+          if (req.file) {
+            cvSRC = req.file.filename;
+            const data = await applicantModel.getImageURL(id);
+      
+            if (data.length > 0) {
+              await applicantModel.updateApplicantProfile(values, id, cvSRC);
+              removeApplicantFile(data[0].applicant_resume);
             }
-            else {
-                   let data = await applicantModel.updateProfileWithoutImg(values, id);
-                  
-            }
-            req.flash('success', 'Updated Successfully')
-            return res.redirect(`/company/profile/${id}`)
-        }catch(error){
+          } else {
+            await applicantModel.updateProfileWithoutImg(values, id);
+          }
+      
+          req.flash('success', 'Updated Successfully');
+          res.redirect(`/applicant/profile/${id}`);
+        } catch (error) {
+          if (cvSRC) {
             removeApplicantFile(cvSRC);
-            console.log(error);
+          }
+          console.log(error);
+          res.status(500).send('Internal Server Error');
         }
-    }
+      };
     
       const applyApplicant = async (req, res) =>{                   // Apply Applicant
         try {
@@ -104,7 +106,7 @@ const getData = async (req, res, next) => {
         try {
             let data = await applicationModel.getApplicationByID(req.user.applicant_id);
             
-            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated()}) 
+            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated(), page: "Track Status"}) 
          
         } catch (error) {
             console.log(error);
@@ -120,11 +122,10 @@ const getData = async (req, res, next) => {
             } else {
                 return res.status(403).send('Only One Session Per User');
             }
-     
+               
         }
-
+        res.redirect('/userLogin')
     }
-
    
     function checkNotAuthenticated(req, res, next) {
         

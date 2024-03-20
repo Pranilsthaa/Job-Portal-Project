@@ -13,7 +13,9 @@
     position: absolute;
     width: calc(100% - 600px);
     left: 280px;
-    margin-top: 20px;
+    margin: auto;
+    height: calc(100dvh - 130px);
+    
 }
 
 .hero-profile caption{

@@ -24,7 +24,7 @@
     text-align: center;
     align-items: center;
     width: 250px;
-    height: calc(100lvh - 100px);  
+    height: calc(100dvh - 100px);  
     box-shadow: 0px 6px 6px black; 
     padding:20px;
     margin: 0px 40px 0px -12px; 
@@ -213,7 +213,7 @@
     background-color: #92601e;
 }
 
-.job-description .job-info-container button{
+.job-description .job-info-container #button{
     margin-top: 8px;
     width: 100px;
     height: 34px;
@@ -279,7 +279,6 @@
     text-transform: capitalize;
     font-family: 'poppins';
     margin: auto;
-    
 }
 
 #pagination a {

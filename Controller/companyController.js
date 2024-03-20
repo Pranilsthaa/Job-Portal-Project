@@ -36,7 +36,8 @@ const companyDashboard = async (req, res) =>  {
                                                 applicantCount: applicantCount,
                                                 totalPage: totalPage,
                                                 currentPage: page,
-                                                companyAuth: req.isAuthenticated()
+                                                companyAuth: req.isAuthenticated(),
+                                                page: "Dashboard"
                                                 })
     }catch(error){
         console.log(error);
@@ -44,7 +45,7 @@ const companyDashboard = async (req, res) =>  {
 }
 
 const getPostJobForm = (req, res) =>  {
-    res.render('Company/postJobs', {data: req.user, companyAuth: req.isAuthenticated()})
+    res.render('Company/postJobs', {data: req.user, companyAuth: req.isAuthenticated(), page: "Post Jobs"})
 }
 
 const postJob = async (req, res) =>  {
@@ -97,7 +98,7 @@ const deleteJob = async (req, res) =>  {
 const getJobApplicant = async(req, res) =>  {
     try{
         let data = await companyModel.getApplicationInfo(req.user.company_id);
-        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data, companyAuth: req.isAuthenticated()})
+        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data, companyAuth: req.isAuthenticated(), page: "Applicants"})
     }catch(error){
         console.log(error);
     }
@@ -107,10 +108,11 @@ const respondToApplication = async (req, res) => {
     try{
             const status = req.params.status;
             const id = req.params.id;
+            const jobtitle = req.query.jobtitle;
             const data = await applicationModel.changeApplicationStatus(status,id);
 
             const applicantEmail = await applicationModel.getApplicantEmailByApplicationID(id);
-            mail.main(applicantEmail[0].applicant_email, 'Applicantion Status', `Your Application has been ${status} by the company`); //calling nodemailer function
+            mail.main(applicantEmail[0].applicant_email, 'Applicantion Status', `Your Application for the Post ${jobtitle} has been ${status} by ${req.user.company_name}`); //calling nodemailer function
             return res.redirect('/company/applicants')
     }
 
@@ -125,7 +127,7 @@ const getProfileForm = async (req, res) =>  {
         const id = req.params.id;
         const company = await companyModel.getCompanyDetailByID(id)
         
-        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated()})
+        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated(), page: "Profile"})
     }catch(error){
         console.log(error)
     }
@@ -195,7 +197,6 @@ const getData = async (req, res, next) => {
         }
             next();
     }
-
 
     const checkCompanyVerification = (req, res) => {
         if(req.user.isVerfied){

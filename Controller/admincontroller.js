@@ -20,14 +20,7 @@ const getAdminDashboard = async (req, res) => {
     }
 } 
 
-const adminUser = [
-    {
-        id: 1,
-        username: 'admin',
-        password: 'admin',
-        role: 'admin' 
-    },
-];
+const adminUser = JSON.parse(process.env.ADMIN_USER);
 
 const getData = (req, res, next) => {
     try{
@@ -45,7 +38,6 @@ const getData = (req, res, next) => {
         }
         
     }
-
 
     const getApplicants = async (req, res) => {
         try{

@@ -31,7 +31,7 @@
                     <th scope="col">Applicant Email</th>
                     <th scope="col">Applicant Phone</th>
                     <th scope="col">Applicant Address</th>
-                    <th scope="col">Resume</th>
+                    <th scope="col">Resume</th> 
                     <th scope="col" colspan="2">Action</th>
                   </tr>
                 </thead>
@@ -47,6 +47,7 @@
                       <td>{{applicant_email}}</td>
                       <td>{{applicant_phone}}</td>
                       <td>{{applicant_address}}</td>
+                       <td><a href="/static/applicantResume/{{applicant_resume}}" target="_blank">{{#if applicant_resume}}Show Resume{{else}} {{/if}}</a></td> 
                       {{#if (checkProgress Progress)}}
                         <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal">Accept</button></td>
                         <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button></td>
@@ -62,8 +63,8 @@
                                 Are you Sure you want to accept the application?
                               </div>
                               <div class="modal-footer">
-                                {{log application_id}}
-                                <button type="button" class="btn btn-success" onclick="window.location.href='/company/applicants/accepted/{{application_id}}'">Yes</button>
+                               
+                                <button type="button" class="btn btn-success" onclick="window.location.href='/company/applicants/accepted/{{application_id}}?jobtitle={{job_title}}'">Yes</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                               </div>
                             </div>
@@ -80,7 +81,7 @@
                                     Are you Sure you want to reject the application?
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/company/applicants/rejected/{{application_id}}'">Yes</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location.href='/company/applicants/rejected/{{application_id}}?jobtitle={{job_title}}'">Yes</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                                   </div>
                                 </div>
@@ -91,11 +92,8 @@
                       {{else}}
                         <td><strong>{{Progress}}</strong></td>
                       {{/if}}
-                       <td><a href="/static/applicantResume/{{applicant_resume}}" target="_blank">{{#if applicant_resume}}Show Resume{{/if}}</a></td> 
-                       
                       
-
-                    </tr>
+                       </tr>
                     
                  
 

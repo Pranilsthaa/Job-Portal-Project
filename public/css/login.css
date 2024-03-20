@@ -97,7 +97,7 @@
         #login_form .input-group input:valid~label {
             top:0;
             font-size: 12px;
-            background-color: rgb(255, 255, 255);
+            background-color: #ebeff3;
     }
 
     #login_form button{

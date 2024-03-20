@@ -31,7 +31,7 @@
 
         <div class="job-container">
             {{#each data}}
-            <a href="/applicant/jobs/{{job_id}}"> 
+            <a href="/applicant/jobs/{{job_id}}" class="job-link"> 
                 <div class="job">
                     <div class="img-container">
                         <img src="/static/companyLogos/{{company_logo}}" alt="ss">
@@ -61,7 +61,24 @@
 
                             {{#if isApplied}} <a href="/applicant/trackStatus">Track Your Application</a> 
                                 {{else}}
-                                 <form action="/applicant/apply/{{applicant.applicant_id}}/{{des.job_id}}" method="get"> <button>Apply</button>  </form> <!--BUTTON TO APPLY FOR JOBS-->
+                                      <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Are you Sure you want to apply?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-success" onclick="window.location.href='/applicant/apply/{{applicant.applicant_id}}/{{des.job_id}}'">Apply</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              </div>
+                            </div>
+                          </div>
+                                      </div>
+                                 <button type="button" data-bs-toggle="modal" data-bs-target="#acceptModal" id="button">Accept</button> <!--BUTTON TO APPLY FOR JOBS-->
                             {{/if}}
                         </div>
 
@@ -84,7 +101,5 @@
             {{/if}}
         </div>
 
+
     </main>
-
-
-
