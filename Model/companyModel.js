@@ -30,6 +30,24 @@ function getCompanyDetail() {
     });
 }
 
+function getCompanyDetailAdmin(searchQuery) {
+
+    // const offset = parseInt((currentPage - 1) * pageLimit);
+    const query = `SELECT * FROM company_detail WHERE company_name LIKE '%${searchQuery}%' OR isVerified LIKE '%${searchQuery}%'`;
+    return new Promise ((resolve, reject) => { 
+        connection.query(query,
+     (error, result) => {
+        if (error) {
+            return reject(error);
+        }
+        else{
+            return resolve(result);
+     
+        }
+    })
+    });
+}
+
 function getCompanyDetailByID(id) {
     return new Promise ((resolve, reject) => { 
         connection.query('SELECT * FROM company_detail where company_id=?', [id],
@@ -196,6 +214,22 @@ function verifycompany(id){
     })
 }
 
+function terminateCompany(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`UPDATE company_detail
+        SET isVerified = false
+        WHERE company_id =?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
+
 function getTotalJobListingByCompany(id){
     return new Promise((resolve, reject)=>{
         connection.query(`SELECT COUNT(*) AS job_count
@@ -224,5 +258,7 @@ module.exports = {
     getApplicantCount,
     getUnverifiedCompany,
     verifycompany,
-    getTotalJobListingByCompany
+    getTotalJobListingByCompany,
+    terminateCompany,
+    getCompanyDetailAdmin
 }

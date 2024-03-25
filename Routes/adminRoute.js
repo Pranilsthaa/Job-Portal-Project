@@ -10,6 +10,7 @@ adminRoute.get('/applicant', adminController.getApplicants)
 
 adminRoute.get('/company', adminController.getCompanies)    
 adminRoute.get('/company/:id', adminController.getCompanyInfo)    
+adminRoute.get('/company/terminate/:id', adminController.terminateCompany)    
 
 adminRoute.get('/notification', adminController.getnotification)  
 

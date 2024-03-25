@@ -2,7 +2,7 @@
     <div class="company-sidebar">
         <div class="top">
             <img src="/static/companyLogos/{{data.company_logo}}" alt="">
-            <h1>{{data.company_name}} <span style="font-size: 12px;">({{#if data.isVerified}}Verified {{else}} Not Verified {{/if}})</span> </h1>
+            <h1>{{data.company_name}} <span style="font-size: 12px;">({{#if verStatus}}Verified {{else}} Not Verified {{/if}})</span> </h1>
         </div>
 
         <div class="item">
@@ -67,7 +67,12 @@
                   {{/each}}
                 </tbody>
               </table>
-                   <div id="pagination">
+                
+
+<!-- Modal -->
+
+        </div>
+          <div id="pagination_company" >
                 
                   <a href="/company/dashboard?page={{prev currentPage}}">Previous</a>
                   {{#each (pagination totalPage)}}
@@ -76,10 +81,6 @@
                   <a href="/company/dashboard?page={{next currentPage totalPage}}">Next</a>
                 
                 </div>
-
-<!-- Modal -->
-
-        </div>
     </div>
 
 <script src="/static/js/auto-close.js"></script>

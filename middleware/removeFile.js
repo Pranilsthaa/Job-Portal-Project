@@ -17,4 +17,12 @@ function removeApplicantFile(filename){
    })
 }
 
-module.exports = { removeFile, removeApplicantFile }
+function removeApplicantProfilePic(filename){
+   const paths = path.join(__dirname, '../public/profilePictures/', filename);
+   fs.unlink(paths, function(err) {
+        if(err) return console.log(err);
+        console.log('Local Profile Pic deleted successfully')
+   })
+}
+
+module.exports = { removeFile, removeApplicantFile, removeApplicantProfilePic }

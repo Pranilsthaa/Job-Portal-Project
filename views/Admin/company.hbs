@@ -1,21 +1,55 @@
 <div class="hero">
+
     <div id="container">
+        
         <div class="company-info">
+            
                  {{#each data}}  
-                 <a href="/admin/company/{{company_id}}">  
-                    <div class="company">
-                        <div class="img-con">
-                            <img src="/static/companyLogos/{{company_logo}}" alt="">
-                        </div>
-                        <div class="info">
-                            <h1>{{company_name}}</h1>
-                            <h2>{{company_email}}</h2>
-                            <h3>{{company_address}}</h3>
-                        </div>
-                    </div>
-                 </a>   
-            <hr>
+                 <section {{#if isVerified}} {{else}} style="background-color: rgb(199, 68, 68)";{{/if}}>
+                                            <div id="pranil">
+                                                <div class="modal fade" id="Modal-{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{@index}}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Terminate this company's account?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" onclick="window.location.href='/admin/company/terminate/{{company_id}}'" >Yes</button>
+                                                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>    
+                        {{#if isVerified}}
+                        <button id="terminate-btn-{{@index}}" class="terminate-btn" data-bs-toggle="modal" data-bs-target="#Modal-{{@index}}">Terminate</button>
+                        {{else}}
+                        <p></p>
+                        {{/if}}
+                        
+                        <a href="/admin/company/{{company_id}}">  
+                            <div class="company">
+                                <div class="img-con">
+                                
+                                    <img src="/static/companyLogos/{{company_logo}}" alt="">
+                                </div>
+                                
+                                <div class="info">
+                                    
+                                    <h1>{{company_name}}</h1>
+                                    <h2>{{company_email}}</h2>
+                                    <h3>{{company_address}}</h3>
+                                </div>
+                            </div>
+                        </a>   
+            
+                </section>
                  {{/each}}
+
         </div>
                 <div class="company-job-info">
                         <table class="table caption-top">
@@ -43,4 +77,12 @@
                     </table>
                 </div>
     </div>
+{{!--     
+                  <div id="pagination_adminC">
+                    <a href="/admin/company?page={{prev currentPage}}">Previous</a>
+                    {{#each (pagination totalPage)}}
+                    <a href="/admin/company?page={{this}}">{{this}}</a>
+                    {{/each}}
+                    <a href="/admin/company?page={{next currentPage totalPage}}">Next</a>
+                  </div> --}}
 </div>

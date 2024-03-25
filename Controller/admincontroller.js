@@ -54,25 +54,8 @@ const getData = (req, res, next) => {
             console.log(error)
         }
     } 
-
-    const getCompanies = async (req, res) => {
-        try{
-            let data = await companyModel.getCompanyDetail();
-            res.render('Admin/company', {layout: 'admin', user: req.user.role, data: data})
-        }catch(error){
-            console.log(error)
-        }
-    } 
-    const getCompanyInfo = async (req, res) => {
-        try{
-            const id = req.params.id;
-            let data = await companyModel.getCompanyDetail();
-            let add_info = await jobModel.getJobsbyCompanyID(id);
-            res.render('Admin/company', {layout: 'admin', user: req.user.role, data: data, info: add_info})
-        }catch(error){
-            console.log(error)
-        }
-    } 
+ 
+ 
 
     const getnotification = async (req, res) => {
         try{
@@ -91,6 +74,51 @@ const getData = (req, res, next) => {
             let company_info = await companyModel.getCompanyDetailByID(id);
             mail.main(company_info[0].company_email, 'Company Verification', `Congratulations! Your Company ${company_info[0].company_name} has been verified. You can now post jobs.`);
             res.redirect('/admin/notification')
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    
+    const getCompanies = async (req, res) => {  // /admin/company
+        try{
+            let searchQuery = req.query.name || '';
+            // let page = req.query.page || 1;
+            let data = await companyModel.getCompanyDetailAdmin(searchQuery);
+            // let companyData = await applicationModel.getUserData();
+
+            // let totalCompanies = parseInt(companyData[2][0].total_companies);
+            // let totalPage = Math.ceil(totalCompanies / 10);
+
+
+            res.render('Admin/company', {layout: 'admin',
+                                         user: req.user.role,
+                                         data: data,
+                                         companyPage: true,
+                                        })
+        }catch(error){
+            console.log(error)
+        }
+    }
+ 
+    const getCompanyInfo = async (req, res) => {  // /admin/company/:id
+        try{
+            const id = req.params.id;
+            let data = await companyModel.getCompanyDetail();
+            let add_info = await jobModel.getJobsbyCompanyID(id);
+            res.render('Admin/company', {layout: 'admin', user: req.user.role, data: data, info: add_info})
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    const terminateCompany = async (req, res) => {
+        try{
+            const id = req.params.id;
+            let data = await companyModel.terminateCompany(id);
+            let company_info = await companyModel.getCompanyDetailByID(id);
+            // mail.main(company_info[0].company_email, 'Company Termination', `Sorry! Unfortunately Your Company ${company_info[0].company_name} has been terminated. You cannot post jobs until authorization.`);
+            res.redirect('/admin/company')
         }catch(error){
             console.log(error);
         }
@@ -132,7 +160,8 @@ module.exports = {
     getCompanies,
     getnotification,
     verifycompany,
-    getCompanyInfo
+    getCompanyInfo,
+    terminateCompany
 }
 
 

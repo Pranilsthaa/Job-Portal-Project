@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="/static/css/register.css">
     <link rel="stylesheet" href="/static/css/admin.css">
@@ -29,7 +29,27 @@
       rel="stylesheet"
     />
 </head>
-
+<style>
+        /* width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #888; 
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555; 
+        }
+        </style>
 
   <body>
         {{#if (checkAdmin user)}}  {{!    SHOW Only If the User/Admin is Authenticated   }}
@@ -44,6 +64,12 @@
         <button type="submit"><i class="bx bx-search">Search</i></button>
       </form>        
         {{/if}}
+      {{#if companyPage}}
+      <form id="form" method="get">
+        <input type="text" id="search" placeholder="Search for Companies" name="name" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter 1 for verified & 0 for unverified"/>
+        <button type="submit"><i class="bx bx-search">Search</i></button>
+      </form>        
+        {{/if}}
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
@@ -51,9 +77,6 @@
            
         </div>
         
-       
-        
-
         <div class="sidebar-content">
           <ul class="lists">
             <li class="list">

@@ -4,7 +4,7 @@
             <div class="sidebar">
                 <div class="top">
                    <div class="profile-img">
-                    <i class="fa-solid fa-user"></i>
+                    <img src="/static/profilePictures/{{info.applicant_profilePic}}" alt="ProfilePic" />
                     </div>
                     <h1>{{id.applicant_name}}</h1>
                 </div>
@@ -51,10 +51,14 @@
     <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{info.applicant_address}}">
   </div>
 
-
   <div class="col-md-6">
     <label for="formFile" class="form-label">Provide Your Resume</label>
   <input class="form-control" type="file" id="formFile" name="applicant_resume">
+  </div>
+
+  <div class="col-md-6">
+    <label for="formFile" class="form-label">Update Profile Pic</label>
+  <input class="form-control" type="file" id="formFile" name="profilePic">
   </div>
   <div class="col-12">
     <button class="btn btn-primary">UPDATE</button>

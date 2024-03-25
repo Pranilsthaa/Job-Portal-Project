@@ -10,7 +10,7 @@ applicantRoute.get('/jobs',applicant_controller.checkAuthenticated, controller.g
 applicantRoute.get('/jobs/:job_id',applicant_controller.checkAuthenticated, controller.getJobsDetailByID) 
 
 applicantRoute.get('/profile/:id', applicant_controller.checkAuthenticated, applicant_controller.getProfileForm) 
-applicantRoute.post('/profile/:id',upload.single('applicant_resume'), applicant_controller.updateApplicantProfile) 
+applicantRoute.post('/profile/:id',upload.uploadFields , applicant_controller.updateApplicantProfile) 
 
 applicantRoute.get('/apply/:app_id/:job_id',applicant_controller.checkAuthenticated, applicant_controller.applyApplicant)
 

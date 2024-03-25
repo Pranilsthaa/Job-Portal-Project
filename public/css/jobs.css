@@ -38,18 +38,21 @@
 }
 
 .sidebar .profile-img{
-    background-color: #2a2525;
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     border-radius: 50%;
+    box-shadow: 0px 2px 4px rgb(212, 200, 200);
     color: rgb(255, 255, 255);
 }
 
-.sidebar i {
+.sidebar img {
     position: relative;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
     top:50%;
     transform: translateY(-50%);
-    font-size: 50px;
 }
 
 .sidebar h1{
@@ -205,7 +208,7 @@
     background-color: #b86800;
     font-size: 15px;
     font-size: 15px;
-    padding-top: 5px;
+    padding-top: 6px;
     font-family: 'poppins';
 }
 

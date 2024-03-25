@@ -78,11 +78,12 @@ function getImageURL(id){
     })
 }
 
-function updateApplicantProfile(values, id, src) {
-    const {name, email, phone, address} = values;
-
+function updateApplicantProfile(values, id) {
+    const {name, email, phone, address, applicant_resume, profile_picture} = values;
+    
+    
 return new Promise ((resolve, reject) => { 
-    connection.query('UPDATE applicant_detail SET applicant_name=?, applicant_phone=?, applicant_address=?, applicant_email=?, applicant_resume=? where applicant_id=?', [name, phone, address, email, src, id],
+    connection.query('UPDATE applicant_detail SET applicant_name=?, applicant_phone=?, applicant_address=?, applicant_email=?, applicant_resume=?, applicant_profilePic=? where applicant_id=?', [name, phone, address, email,applicant_resume, profile_picture, id],
  (error, result) => {
     if (error) {
         console.error('Error updating applicant profile:', error);

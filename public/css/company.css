@@ -15,7 +15,7 @@
     left: 280px;
     margin: auto;
     height: calc(100dvh - 130px);
-    
+    overflow: auto;
 }
 
 .hero-profile caption{
@@ -98,3 +98,19 @@
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
    }
+
+
+   #pagination_company{
+    position: fixed;
+    height: 20px;
+    bottom: 50px;
+    left: 250px;
+}
+
+#pagination_company a {
+    background-color: #240A34;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    color: white;
+}
