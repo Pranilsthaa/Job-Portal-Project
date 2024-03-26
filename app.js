@@ -12,6 +12,14 @@ const methodOverride = require('method-override')
 const helper = require('./Helper/helper')
 const passport = require('passport')
 const MySQLStore = require('express-mysql-session')(session);
+const initializeApplicantPassport = require('./Auth/initializeApplicantPassport');
+const initializeCompanyPassport = require('./Auth/initializeCompanyPassport');
+const initializeAdminPassport = require('./Auth/initializeAdminPassport');
+
+initializeApplicantPassport();
+initializeCompanyPassport();
+initializeAdminPassport();
+
 
 // CONFIGURING MYSQL-SESSION
   const options = {
@@ -55,7 +63,8 @@ app.use(passport.session())
 const {authRoute} = require('./Routes/authRoute')
 const {applicantRoute} = require('./Routes/applicantRoute')
 const {companyRoute} = require('./Routes/companyRoute')
-const {adminRoute} = require('./Routes/adminRoute')
+const {adminRoute} = require('./Routes/adminRoute');
+
 
 
 app.use('/', authRoute)

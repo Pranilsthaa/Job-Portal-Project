@@ -75,6 +75,9 @@ function checkAuth (applicant, company){
     return false;
 }
 
+function checkTerminated(value){
+    return value === 'terminated';
+}
 
 module.exports = {
     inc,
@@ -85,5 +88,6 @@ module.exports = {
     prev,
     next,
     indexInc,
-    checkAuth
+    checkAuth,
+    checkTerminated
 }

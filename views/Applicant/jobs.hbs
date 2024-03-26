@@ -11,7 +11,7 @@
             <div class="sidebar">
                 <div class="top">
                   <div class="profile-img">
-                     <img src="/static/profilePictures/{{info.applicant_profilePic}}" alt="ProfilePic" />
+                     <img src="/static/profilePictures/{{pic}}" alt="ProfilePic" />
                   </div>
                     <h1>{{id.applicant_name}}</h1>
                 </div>
@@ -72,13 +72,13 @@
                                 Are you Sure you want to apply?
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-success" onclick="window.location.href='/applicant/apply/{{applicant.applicant_id}}/{{des.job_id}}'">Apply</button>
+                                <button type="button" class="btn btn-success" onclick="window.location.href='/applicant/apply/{{id.applicant_id}}/{{des.job_id}}'">Apply</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                               </div>
                             </div>
                           </div>
                                       </div>
-                                 <button type="button" data-bs-toggle="modal" data-bs-target="#acceptModal" id="button">Accept</button> <!--BUTTON TO APPLY FOR JOBS-->
+                                 <button type="button" data-bs-toggle="modal" data-bs-target="#acceptModal" id="button">Apply</button> <!--BUTTON TO APPLY FOR JOBS-->
                             {{/if}}
                         </div>
 

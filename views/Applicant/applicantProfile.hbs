@@ -4,9 +4,9 @@
             <div class="sidebar">
                 <div class="top">
                    <div class="profile-img">
-                    <img src="/static/profilePictures/{{info.applicant_profilePic}}" alt="ProfilePic" />
+                    <img src="/static/profilePictures/{{data.applicant_profilePic}}" alt="ProfilePic" />
                     </div>
-                    <h1>{{id.applicant_name}}</h1>
+                    <h1>{{data.applicant_name}}</h1>
                 </div>
         
                 <div class="item">
@@ -32,23 +32,23 @@
             {{/if}}
     <div class="col-md-6">
     <label for="inputZip" class="form-label">Name</label>
-    <input type="text" class="form-control" id="inputZip" name="name" value="{{info.applicant_name}}">
+    <input type="text" class="form-control" id="inputZip" name="name" value="{{data.applicant_name}}">
   </div>
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{info.applicant_email}}">
+    <input type="email" class="form-control" id="inputEmail4" name="email" value="{{data.applicant_email}}">
   </div>
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4" value="{{info.applicant_password}}" disabled>
+    <input type="password" class="form-control" id="inputPassword4" value="{{data.applicant_password}}" disabled>
   </div>
   <div class="col-12">
     <label for="inputAddress" class="form-label">Phone</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="Phone" name="phone" value="{{info.applicant_phone}}">
+    <input type="text" class="form-control" id="inputAddress" placeholder="Phone" name="phone" value="{{data.applicant_phone}}">
   </div>
   <div class="col-12">
     <label for="inputAddress2" class="form-label">Address</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{info.applicant_address}}">
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Location" name="address" value="{{data.applicant_address}}">
   </div>
 
   <div class="col-md-6">

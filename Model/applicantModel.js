@@ -113,7 +113,37 @@ return new Promise ((resolve, reject) => {
 });
 }
 
+function terminateApplicant(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`UPDATE applicant_detail
+        SET role = 'terminated'
+        WHERE applicant_id =?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
 
+function authorizeApplicant(id){
+    return new Promise((resolve, reject)=>{
+        connection.query(`UPDATE applicant_detail
+        SET role = 'job-seeker'
+        WHERE applicant_id =?;`, [id],
+        (error, result) => {
+            if(error){
+                return reject(error);
+            }
+            else{
+                return resolve(result)
+            }
+        })
+    })
+}
 
 module.exports = {
     registerApplicant,
@@ -122,7 +152,9 @@ module.exports = {
     getImageURL,
     updateApplicantProfile,
     updateProfileWithoutImg,
-    getApplicantDetailPaginated
+    getApplicantDetailPaginated,
+    terminateApplicant,
+    authorizeApplicant
 }
 
 

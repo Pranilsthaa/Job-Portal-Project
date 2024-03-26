@@ -4,7 +4,6 @@ const companyModel = require('../Model/companyModel')
 const applicationModel = require('../Model/applicationModel')
 const jobModel = require('../Model/jobModel')
 const mail = require('../Nodemailer/nodemailer-config') 
-const initializeAdmin = require('../Auth/passport-config-admin')
 
 const getAdminLogin = (req, res) => {
     res.render('Admin/login', {layout: 'admin'})
@@ -13,30 +12,18 @@ const getAdminLogin = (req, res) => {
 const getAdminDashboard = async (req, res) => {
     try{
         let data = await applicationModel.getUserData();
-        req.flash('loginSuccess', 'Logged In Successfully')
-        res.render('Admin/dashboard', {layout: 'admin', user: req.user.role, applicants: data[0][0].total_applicants, companies: data[2][0].total_companies, jobs: data[3][0].total_jobs_posted, applications: data[1][0].total_applications })
+        req.flash('loginSuccess', 'Logged in Successfully');
+        res.render('Admin/dashboard', {layout: 'admin',
+                                       user: req.user.role,
+                                       applicants: data[0][0].total_applicants,
+                                       companies: data[2][0].total_companies,
+                                       jobs: data[3][0].total_jobs_posted,
+                                       applications: data[1][0].total_applications,
+                                    })
     }catch(error){
         console.log(error);
     }
 } 
-
-const adminUser = JSON.parse(process.env.ADMIN_USER);
-
-const getData = (req, res, next) => {  //for login
-    try{
-        const data = adminUser;
-        if (!Array.isArray(data)) {
-            throw new Error('Invalid data format returned by getApplicantDetail');
-        }
-        initializeAdmin(passport, 
-            username => data.find(adminUser => adminUser.username === username),
-            id => data.find(adminUser => adminUser.id === id)
-            );
-            next();
-        } catch(error){
-            throw error
-        }
-    }
 
     const getApplicants = async (req, res) => {
         try{
@@ -116,8 +103,32 @@ const getData = (req, res, next) => {  //for login
             const id = req.params.id;
             let data = await companyModel.terminateCompany(id);
             let company_info = await companyModel.getCompanyDetailByID(id);
-            // mail.main(company_info[0].company_email, 'Company Termination', `Sorry! Unfortunately Your Company ${company_info[0].company_name} has been terminated. You cannot post jobs until authorization.`);
+            mail.main(company_info[0].company_email, 'Company Termination', `Sorry! Unfortunately Your Company ${company_info[0].company_name} has been terminated. You cannot post jobs until authorization.`);
             res.redirect('/admin/company')
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const terminateApplicant = async (req, res) => {
+        try{
+            const id = req.params.id;
+            let data = await applicantModel.terminateApplicant(id);
+            let user_info = await applicantModel.getApplicantDetailByID(id);
+            mail.main(user_info[0].applicant_email, 'Account Termination', `Sorry! Unfortunately Your Job-seeking account named ${user_info[0].applicant_name} has been terminated. You cannot access the account until authorization.`);
+            res.redirect('/admin/applicant')
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const authorizeApplicant = async (req, res) => {
+        try{
+            const id = req.params.id;
+            let data = await applicantModel.authorizeApplicant(id);
+            let user_info = await applicantModel.getApplicantDetailByID(id);
+            mail.main(user_info[0].applicant_email, 'Account Authorization', `Congratulations! Your Job-seeking account named ${user_info[0].applicant_name} has been authorized. You can now access the account.`);
+            res.redirect('/admin/applicant')
         }catch(error){
             console.log(error);
         }
@@ -145,14 +156,9 @@ const getData = (req, res, next) => {  //for login
         res.redirect('/userLogin')
     }
 
-
-
-
-
 module.exports = {
     getAdminLogin,
     getAdminDashboard,
-    getData,
     logout,
     checkAuthenticated,
     getApplicants,
@@ -160,7 +166,9 @@ module.exports = {
     getnotification,
     verifycompany,
     getCompanyInfo,
-    terminateCompany
+    terminateCompany,
+    terminateApplicant,
+    authorizeApplicant
 }
 
 

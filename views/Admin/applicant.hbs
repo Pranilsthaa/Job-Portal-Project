@@ -14,11 +14,52 @@
                  {{#each data}}
                   <tr>
                     <th scope="row">{{indexInc @index ../currentPage 10}}</th>
-                    <td>{{applicant_name}}</td>
-                    <td>{{applicant_email}}</td>
-                    <td>random, random</td>
-                    
-                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Terminate</button></td>                    
+                    <td {{#if (checkTerminated role)}} style="color: red"{{/if}}>{{applicant_name}}</td>
+                    <td  {{#if (checkTerminated role)}} style="color: red"{{/if}}>{{applicant_email}}</td>
+                    <td  {{#if (checkTerminated role)}} style="color: red"{{/if}}>random, random</td>
+                        <div id="pranil">
+                            <div class="modal fade" id="Modal-{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{@index}}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Terminate this Applicant's account?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" onclick="window.location.href='/admin/applicant/terminate/{{applicant_id}}'">Terminate</button>
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div id="undopranil">
+                            <div class="modal fade" id="undoModal-{{@index}}" tabindex="-1" aria-labelledby="undoexampleModalLabel-{{@index}}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Authorize this Applicant's account?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" onclick="window.location.href='/admin/applicant/authorize/{{applicant_id}}'">Authorize</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    {{#if (checkTerminated role)}}
+                    <td><button type="button" id="terminate-btn-{{@index}}" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#undoModal-{{@index}}">Undo</button></td>   
+                    {{else}}    
+                    <td><button type="button" id="terminate-btn-{{@index}}" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-{{@index}}">Terminate</button></td>    
+                    {{/if}}   
                   </tr>
                  {{/each}}
             

@@ -2,7 +2,6 @@ const companyModel = require('../Model/companyModel')
 const jobModel = require('../Model/jobModel')
 const applicationModel = require('../Model/applicationModel')
 const bcrypt = require('bcrypt')
-const initializeCompany = require('../Auth/passport-config-company')
 const passport = require('passport')
 const { removeFile } = require('../middleware/removeFile')
 const mail = require('../Nodemailer/nodemailer-config');
@@ -27,7 +26,6 @@ const companyDashboard = async (req, res) =>  {
         let applicantCount = await companyModel.getApplicantCount(req.user.company_id);
         let JobListing = await companyModel.getTotalJobListingByCompany(id);
         let JobListingCount = JobListing[0].job_count;
-        let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
 
         let totalPage = Math.ceil(JobListingCount / limit);
 
@@ -36,7 +34,7 @@ const companyDashboard = async (req, res) =>  {
             applicantCount: applicantCount[index].applicantCount || 0 
         }));
          res.render('Company/companyDashboard', {data: req.user, 
-                                                verStatus: companyInfo[0].isVerified,
+                                                verStatus: req.user.isVerified,
                                                 joblist: newjobList,
                                                 applicantCount: applicantCount,
                                                 totalPage: totalPage,
@@ -50,9 +48,7 @@ const companyDashboard = async (req, res) =>  {
 }
 
 const getPostJobForm = async (req, res) =>  {
-    let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
-
-    res.render('Company/postJobs', {data: req.user, companyAuth: req.isAuthenticated(), page: "Post Jobs", verStatus: companyInfo[0].isVerified})
+    res.render('Company/postJobs', {data: req.user, companyAuth: req.isAuthenticated(), page: "Post Jobs", verStatus: req.user.isVerified})
 }
 
 const postJob = async (req, res) =>  {
@@ -69,8 +65,7 @@ const getEditJobForm = async (req, res) =>  {
     try{      
         const job_id = req.params.job_id;
         let data = await jobModel.getJobDetailsByID(job_id);
-        let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
-        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0], verStatus: companyInfo[0].isVerified})
+        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0], verStatus: req.user.isVerified})
     }
     catch(error){
         console.log(error);
@@ -106,8 +101,7 @@ const deleteJob = async (req, res) =>  {
 const getJobApplicant = async(req, res) =>  {
     try{
         let data = await companyModel.getApplicationInfo(req.user.company_id);
-        let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
-        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data, companyAuth: req.isAuthenticated(), page: "Applicants", verStatus: companyInfo[0].isVerified})
+        res.render('Company/jobApplicant', {data: req.user, applicationInfo: data, companyAuth: req.isAuthenticated(), page: "Applicants", verStatus: req.user.isVerified})
     }catch(error){
         console.log(error);
     }
@@ -135,9 +129,8 @@ const getProfileForm = async (req, res) =>  {
     try{
         const id = req.params.id;
         const company = await companyModel.getCompanyDetailByID(id)
-        let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
 
-        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated(), page: "Profile", verStatus: companyInfo[0].isVerified})
+        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated(), page: "Profile", verStatus: req.user.isVerified})
     }catch(error){
         console.log(error)
     }
@@ -160,34 +153,25 @@ const registerCompany = async (req, res) => {
     }
 }
 
-const getData = async (req, res, next) => {
-    try{
-        const data = await companyModel.getCompanyDetail();
-        if (!Array.isArray(data)) {
-            throw new Error('Invalid data format returned by getCompanyDetail');
-        }
-        initializeCompany(passport,
-            email => data.find(user => user.company_email === email),
-            id => data.find(user => user.company_id === id)
-            );
-            next();
-        } catch(error){
-            throw error
-        }
-    }
+// const getData = async (req, res, next) => {
+//     try{
+//         const data = await companyModel.getCompanyDetail();
+//         if (!Array.isArray(data)) {
+//             throw new Error('Invalid data format returned by getCompanyDetail');
+//         }
+//         initializeCompany(passport,
+//             email => data.find(user => user.company_email === email),
+//             id => data.find(user => user.company_id === id)
+//             );
+//             next();
+//         } catch(error){
+//             throw error
+//         }
+//     }
 
 
     //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
-    // function checkAuthenticated(req, res, next) {   // Protecting Route
-    //     if (req.isAuthenticated()) {
-    //         if (req.user.role === 'company') {
-    //             return next();
-    //         } else {
-    //             return res.status(403).send('Only One Session Per User');
-    //         }
-    //     }
-    // }
     
     function checkAuthenticated(req, res, next) {   // Protecting Route
         if (req.isAuthenticated()) {
@@ -212,11 +196,27 @@ const getData = async (req, res, next) => {
             next();
     }
 
+    // const checkCompanyVerification = async (req, res, next) => {
+    //     try{
+    //         let data = await companyModel.getCompanyDetailByID(req.user.company_id);
+
+    //         if(data[0].isVerified){
+    //             req.flash('success', 'Job Posted Successfully');
+    //             return next();
+    //         }
+    //         else{
+    //             req.flash('error', 'Your company is not verified yet');
+    //             res.redirect('/company/postJobs')
+    //         }
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
     const checkCompanyVerification = async (req, res, next) => {
         try{
-            let data = await companyModel.getCompanyDetailByID(req.user.company_id);
+        
 
-            if(data[0].isVerified){
+            if(req.user.isVerified){
                 req.flash('success', 'Job Posted Successfully');
                 return next();
             }
@@ -276,7 +276,6 @@ module.exports={
     getPostJobForm,
     getJobApplicant,
     registerCompany,
-    getData,
     checkAuthenticated,
     checkNotAuthenticated,
     getProfileForm,

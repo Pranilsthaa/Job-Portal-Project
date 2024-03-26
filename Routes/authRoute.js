@@ -6,10 +6,11 @@ const applicantController = require('../Controller/applicantController')
 const companyController = require('../Controller/companyController');
 const adminController = require('../Controller/admincontroller');
 const { validateUserRegister } = require('../validation/Validation');
+const clearLoginSuccessFlash = require('../middleware/checkFlash');
 
 
 authRoute.get('/userLogin', applicantController.checkNotAuthenticated, applicantController.loginApplicantForm)           // FOR USER ROUTE
-authRoute.post('/userLogin',applicantController.getData, passport.authenticate('applicant', {
+authRoute.post('/userLogin', passport.authenticate('applicant', {
     successRedirect: '/applicant/jobs',
     failureRedirect:'/userLogin',
     failureFlash: true,
@@ -21,7 +22,7 @@ authRoute.post('/userRegister', validateUserRegister, applicantController.regist
 
 
 authRoute.get('/companyLogin',companyController.checkNotAuthenticated, companyController.loginCompany)                                                          // FOR COMPANY ROUTE
-authRoute.post('/companyLogin',companyController.getData, passport.authenticate('company', {
+authRoute.post('/companyLogin', passport.authenticate('company', {
     successRedirect: '/company/Dashboard',
     failureRedirect:'/companyLogin',
     failureFlash: true,
@@ -35,7 +36,7 @@ authRoute.post('/companyRegister',validateUserRegister, companyController.regist
 
 authRoute.get('/admin', adminController.getAdminLogin) 
 
-authRoute.post('/admin',adminController.getData, passport.authenticate('admin', {
+authRoute.post('/admin', passport.authenticate('admin', {
     successRedirect: '/admin/dashboard',
     failureRedirect: '/admin',
     failureFlash: true,

@@ -38,11 +38,13 @@
 }
 
 .sidebar .profile-img{
+    position: relative;
     height: 120px;
     width: 120px;
     border-radius: 50%;
     box-shadow: 0px 2px 4px rgb(212, 200, 200);
     color: rgb(255, 255, 255);
+    margin-left: 20px;
 }
 
 .sidebar img {
@@ -51,8 +53,7 @@
     height: 120px;
     width: 120px;
     object-fit: cover;
-    top:50%;
-    transform: translateY(-50%);
+    
 }
 
 .sidebar h1{
@@ -64,6 +65,7 @@
 }
 
 .sidebar button{
+    position: relative;
     outline: none;
     border: none;
     width: 100px;
@@ -73,10 +75,12 @@
     background-color: #06437d;
     color: white;
     transition: 0.5 ease;
+    right: 7px;
+    bottom: -200px;
 }
 
 .sidebar button:hover{
-    background-color: #294178;
+    background-color: #4b6dbc;
 }
 
 .sidebar button:active{
@@ -89,6 +93,7 @@
 }
 
 .item ul li a{
+    margin-right: 30px;
     text-decoration: none;
     font-family: 'poppins';
     color: black;

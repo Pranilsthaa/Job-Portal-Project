@@ -1,7 +1,7 @@
 const applicantModel = require('../Model/applicantModel')
 const applicationModel = require('../Model/applicationModel')
 const jobModel = require('../Model/jobModel')
-const initializeApplicant = require('../Auth/passport-config-user')
+// const initializeApplicant = require('../Auth/initializeApplicantPassport')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const { removeApplicantFile, removeApplicantProfilePic } = require('../middleware/removeFile')
@@ -9,7 +9,6 @@ const { validationResult } = require('express-validator');
 
 
 const loginApplicantForm = async (req, res) =>  {
-    console.log(req.isAuthenticated());
     res.render('Authentication/login' , {isApplicant : true, isAuth: req.isAuthenticated(), page: 'Applicant | Login'})
     
 }
@@ -22,46 +21,29 @@ const registerApplicant = async (req, res) =>  {
 
     try{
         const value = req.body;
-        
         const error = validationResult(req);
         if(!error.isEmpty()){
             return res.render('Authentication/register', {isApplicant: true, page: 'Applicant | Register', error: error.mapped(), values: req.body})
         }
-        
-        const hasedPassword = await bcrypt.hash(req.body.password, 10)
-        const data = await applicantModel.registerApplicant(value, hasedPassword);
-
-        return res.render('Authentication/login', {isApplicant: true})
+        else{
+            const hasedPassword = await bcrypt.hash(req.body.password, 10);
+            const data = await applicantModel.registerApplicant(value, hasedPassword);
+           
+            return res.render('Authentication/login', {isApplicant: true, page: 'Applicant | Register'})
+        }
     }
 
-    catch(error){
-        throw error
-    }
+    catch (error) {
+        console.error('Error registering applicant:', error);
+        res.status(500).send('An error occurred while registering applicant');
+      }
 }
 
-const getData = async (req, res, next) => {
-    try{
-        const data = await applicantModel.getApplicantDetail();
-        if (!Array.isArray(data)) {
-            throw new Error('Invalid data format returned by getApplicantDetail');
-        }
-        initializeApplicant(passport, 
-            email => data.find(user => user.applicant_email === email),
-            id => data.find(user => user.applicant_id === id)
-            );
-            next();
-        } catch(error){
-            throw error
-        }
-        
-    }
 
     const getProfileForm = async (req, res) =>{
         try {
             const id = req.params.id;
-            let data = await applicantModel.getApplicantDetailByID(id);
-
-            res.render('Applicant/applicantProfile', {data: req.user, info: data[0], id: req.user, isAuth: req.isAuthenticated(), page: "Profile"});   
+            res.render('Applicant/applicantProfile', {data: req.user, isAuth: req.isAuthenticated(), page: "Profile"});   
         } catch (error) {
             console.log(error);
         }
@@ -141,9 +123,7 @@ const getData = async (req, res, next) => {
     const getTrackStatus = async (req, res) =>{                   // Apply Applicant
         try {
             let data = await applicationModel.getApplicationByID(req.user.applicant_id);
-            let userData = await applicantModel.getApplicantDetailByID(req.user.applicant_id);
-            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated(), page: "Track Status", info: userData[0]}) 
-         
+            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated(), page: "Track Status"}) 
         } catch (error) {
             console.log(error);
         }
@@ -153,7 +133,6 @@ const getData = async (req, res, next) => {
 
     function checkAuthenticated(req, res, next) {    // ROUTE PROTECTION
         if (req.isAuthenticated()) {
-            console.log(req.user)
             if (req.user.role === 'job-seeker') {
                 return next();
             } else {
@@ -195,7 +174,6 @@ module.exports={
     registerApplicant,
     checkAuthenticated,
     checkNotAuthenticated,
-    getData,
     logout,
     getProfileForm,
     updateApplicantProfile,
