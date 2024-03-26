@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 
-function initialize(passport, getUserByUsername, getUserById){
+function initializeAdmin(passport, getUserByUsername, getAdminById){
 
     const authenticateUser = async (username, password, done) => {
     
@@ -32,9 +32,9 @@ function initialize(passport, getUserByUsername, getUserById){
       passport.serializeUser((admin, done) => done(null, admin.id));
 
       passport.deserializeUser((id, done) => {
-        return done(null, getUserById(id))
+        return done(null, getAdminById(id))
 })
 }
 
 
-module.exports = initialize;
+module.exports = initializeAdmin;

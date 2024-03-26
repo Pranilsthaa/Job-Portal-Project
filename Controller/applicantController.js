@@ -1,24 +1,33 @@
 const applicantModel = require('../Model/applicantModel')
 const applicationModel = require('../Model/applicationModel')
 const jobModel = require('../Model/jobModel')
-const initialize = require('../Auth/passport-config-user')
+const initializeApplicant = require('../Auth/passport-config-user')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const { removeApplicantFile, removeApplicantProfilePic } = require('../middleware/removeFile')
+const { validationResult } = require('express-validator');
+
 
 const loginApplicantForm = async (req, res) =>  {
+    console.log(req.isAuthenticated());
     res.render('Authentication/login' , {isApplicant : true, isAuth: req.isAuthenticated(), page: 'Applicant | Login'})
     
 }
 
-    const registerForm = (req, res) =>  {
-    res.render('Authentication/register', {isApplicant : true, page: 'Applicant | Register'})
-    }
+const registerForm = (req, res) =>  {
+res.render('Authentication/register', {isApplicant : true, page: 'Applicant | Register'})
+}
 
 const registerApplicant = async (req, res) =>  {
 
     try{
         const value = req.body;
+        
+        const error = validationResult(req);
+        if(!error.isEmpty()){
+            return res.render('Authentication/register', {isApplicant: true, page: 'Applicant | Register', error: error.mapped(), values: req.body})
+        }
+        
         const hasedPassword = await bcrypt.hash(req.body.password, 10)
         const data = await applicantModel.registerApplicant(value, hasedPassword);
 
@@ -36,7 +45,7 @@ const getData = async (req, res, next) => {
         if (!Array.isArray(data)) {
             throw new Error('Invalid data format returned by getApplicantDetail');
         }
-        initialize(passport, 
+        initializeApplicant(passport, 
             email => data.find(user => user.applicant_email === email),
             id => data.find(user => user.applicant_id === id)
             );
@@ -144,16 +153,17 @@ const getData = async (req, res, next) => {
 
     function checkAuthenticated(req, res, next) {    // ROUTE PROTECTION
         if (req.isAuthenticated()) {
+            console.log(req.user)
             if (req.user.role === 'job-seeker') {
                 return next();
             } else {
-                return res.status(403).send('Only One Session Per User');
-            }
-               
+                return res.status(403).send('Only applicant can access this route');
+            }   
+        }else{
+           return res.redirect('/userLogin')
         }
-        res.redirect('/userLogin')
     }
-   
+
     function checkNotAuthenticated(req, res, next) {
         
         if (req.isAuthenticated()) {

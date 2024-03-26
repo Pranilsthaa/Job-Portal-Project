@@ -22,7 +22,7 @@
     <div class="hero">    
         <div class="job-listing">
              {{#if messages.success}}
-                <div class="auto-close alert alert-success">
+                <div class="auto-close alert alert-success" style="position: absolute;right:80px;margin-top:20px">
                     <Span>{{messages.success}}</Span>
                 </div>
             {{/if}}
@@ -45,9 +45,9 @@
                     <td>{{job_title}}</td>
                     <td>{{applicantCount}}</td>
                     <td><button type="button" class="btn btn-info" onclick="window.location.href='/company/postJobs/edit/{{job_id}}'">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>                    
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{@index}}">Delete</button></td>                    
                   </tr>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="exampleModal-{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{@index}}" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">

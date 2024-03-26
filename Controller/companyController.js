@@ -2,10 +2,11 @@ const companyModel = require('../Model/companyModel')
 const jobModel = require('../Model/jobModel')
 const applicationModel = require('../Model/applicationModel')
 const bcrypt = require('bcrypt')
-const initialize = require('../Auth/passport-config-company')
+const initializeCompany = require('../Auth/passport-config-company')
 const passport = require('passport')
 const { removeFile } = require('../middleware/removeFile')
 const mail = require('../Nodemailer/nodemailer-config');
+const {validationResult} = require('express-validator')
 
 const loginCompany = (req, res) =>  {
     res.render('Authentication/login', {isApplicant : false, page: 'Company | Login'})
@@ -68,7 +69,8 @@ const getEditJobForm = async (req, res) =>  {
     try{      
         const job_id = req.params.job_id;
         let data = await jobModel.getJobDetailsByID(job_id);
-        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0]})
+        let companyInfo = await companyModel.getCompanyDetailByID(req.user.company_id);
+        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0], verStatus: companyInfo[0].isVerified})
     }
     catch(error){
         console.log(error);
@@ -144,6 +146,10 @@ const getProfileForm = async (req, res) =>  {
 const registerCompany = async (req, res) => {
     try{
         const value = req.body;
+        const error = validationResult(req);
+        if(!error.isEmpty()){
+            return res.render('Authentication/register', {isApplicant: false, page: 'Company | Register', error: error.mapped(), values: req.body})
+        }
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const data = await companyModel.registerCompany(value, hashedPassword);
         return res.render('Authentication/login', {isApplicant: false})
@@ -160,7 +166,7 @@ const getData = async (req, res, next) => {
         if (!Array.isArray(data)) {
             throw new Error('Invalid data format returned by getCompanyDetail');
         }
-        initialize(passport, 
+        initializeCompany(passport,
             email => data.find(user => user.company_email === email),
             id => data.find(user => user.company_id === id)
             );
@@ -168,8 +174,8 @@ const getData = async (req, res, next) => {
         } catch(error){
             throw error
         }
-        
     }
+
 
     //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
@@ -257,13 +263,11 @@ const getData = async (req, res, next) => {
                 if(err){
                     return next(err)
                 }
+                res.clearCookie('sessionCookie');
             res.redirect('/companyLogin')
         });
         
-    }
-
- 
-    
+    }    
 
 module.exports={
     loginCompany,

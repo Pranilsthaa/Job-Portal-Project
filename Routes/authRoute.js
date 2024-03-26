@@ -4,7 +4,8 @@ const authRoute = express.Router();
 
 const applicantController = require('../Controller/applicantController')
 const companyController = require('../Controller/companyController');
-const adminController = require('../Controller/admincontroller')
+const adminController = require('../Controller/admincontroller');
+const { validateUserRegister } = require('../validation/Validation');
 
 
 authRoute.get('/userLogin', applicantController.checkNotAuthenticated, applicantController.loginApplicantForm)           // FOR USER ROUTE
@@ -16,7 +17,7 @@ authRoute.post('/userLogin',applicantController.getData, passport.authenticate('
 }))
 
 authRoute.get('/userRegister', applicantController.registerForm)
-authRoute.post('/userRegister', applicantController.registerApplicant)
+authRoute.post('/userRegister', validateUserRegister, applicantController.registerApplicant)
 
 
 authRoute.get('/companyLogin',companyController.checkNotAuthenticated, companyController.loginCompany)                                                          // FOR COMPANY ROUTE
@@ -27,7 +28,7 @@ authRoute.post('/companyLogin',companyController.getData, passport.authenticate(
 }))
 
 authRoute.get('/companyRegister', companyController.getRegisterCompanyForm) 
-authRoute.post('/companyRegister', companyController.registerCompany) 
+authRoute.post('/companyRegister',validateUserRegister, companyController.registerCompany) 
 
 
 

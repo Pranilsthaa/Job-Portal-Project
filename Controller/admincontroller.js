@@ -1,10 +1,10 @@
-const initialize = require('../Auth/passport-config-admin')
 const passport = require('passport')
 const applicantModel = require('../Model/applicantModel')
 const companyModel = require('../Model/companyModel')
 const applicationModel = require('../Model/applicationModel')
 const jobModel = require('../Model/jobModel')
 const mail = require('../Nodemailer/nodemailer-config') 
+const initializeAdmin = require('../Auth/passport-config-admin')
 
 const getAdminLogin = (req, res) => {
     res.render('Admin/login', {layout: 'admin'})
@@ -22,13 +22,13 @@ const getAdminDashboard = async (req, res) => {
 
 const adminUser = JSON.parse(process.env.ADMIN_USER);
 
-const getData = (req, res, next) => {
+const getData = (req, res, next) => {  //for login
     try{
         const data = adminUser;
         if (!Array.isArray(data)) {
             throw new Error('Invalid data format returned by getApplicantDetail');
         }
-        initialize(passport, 
+        initializeAdmin(passport, 
             username => data.find(adminUser => adminUser.username === username),
             id => data.find(adminUser => adminUser.id === id)
             );
@@ -36,7 +36,6 @@ const getData = (req, res, next) => {
         } catch(error){
             throw error
         }
-        
     }
 
     const getApplicants = async (req, res) => {

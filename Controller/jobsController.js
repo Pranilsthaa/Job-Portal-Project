@@ -2,6 +2,7 @@ const jobModel = require('../Model/jobModel')
 const applicantModel = require('../Model/applicantModel')
 
 const getJobs = async (req, res) =>{
+    console.log(req.isAuthenticated());
     try{
         let searchQuery = req.query.name || '';
 
