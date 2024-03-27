@@ -9,16 +9,12 @@
             <img src="/static/images/login_img2.svg" loading="lazy" />
             {{else}} 
             <img src="/static/images/company_bg.jpg" loading="lazy" />
-            {{/if}}
-           
-          
+            {{/if}}     
          </div>
     
-
-
     <form id="login_form" action=" {{#if isApplicant}} /userLogin {{else}} /companyLogin {{/if}}" method="post">
     {{#if messages.error}}
-                <div class="auto-close alert alert-danger">
+                <div class=" alert alert-danger">
                     {{messages.error}}
                 </div>
     {{/if}}
@@ -32,7 +28,6 @@
             <input type="password" id="password" name="password" required/> 
             <label for="password">Password</label> 
             <i class="fa-regular fa-eye-slash" id="icon"></i>
-            
         </div>
 
         <button> {{#if isApplicant}} Sign in as Applicant  {{else}} Sign in as Company{{/if}}</button> <br>

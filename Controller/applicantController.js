@@ -131,29 +131,34 @@ const registerApplicant = async (req, res) =>  {
 
 //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
-    function checkAuthenticated(req, res, next) {    // ROUTE PROTECTION
-        if (req.isAuthenticated()) {
-            if (req.user.role === 'job-seeker') {
-                return next();
-            } else {
-                return res.status(403).send('Only applicant can access this route');
-            }   
-        }else{
-           return res.redirect('/userLogin')
+    function checkAuthenticated(req, res, next) {       //ROUTE PROTECTIOn
+        if (req.isAuthenticated()) { 
+          if (req.user.role === 'job-seeker') {
+            return next();
+          } else if (req.user.role === 'terminated') {
+            req.flash('error', 'Your Account has been terminated');
+            return res.redirect('/userLogin');
+          } else {
+            return res.status(403).send('Only applicant can access this route');
+          }
+        } else {
+          return res.redirect('/userLogin');
         }
-    }
+      }
 
-    function checkNotAuthenticated(req, res, next) {
-        
+      function checkNotAuthenticated(req, res, next) {   // REDIRECT USER TO DASHBOARD IF ALREADY LOGGED IN
         if (req.isAuthenticated()) {
-            if (req.user.role === 'job-seeker') {
-               res.redirect('/applicant/jobs')
-            } else {
-                return res.status(403).send('Only One Session Per User');
-            }
+          if (req.user.role === 'job-seeker') {
+            return res.redirect('/applicant/jobs');
+          } else if (req.user.role === 'terminated') {
+            req.flash('error', 'Your Account has been terminated');
+            return next();
+          } else {
+            return res.status(403).send('Only Applicant can access this route');
+          }
         }
-            next()
-    }
+        next();
+      }
 
 //------------------------------------------------------Logout
 
