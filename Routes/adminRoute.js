@@ -20,6 +20,8 @@ adminRoute.get('/notification', adminController.getnotification)
 
 adminRoute.get('/verifycompany/:id', adminController.verifycompany)  
 
+adminRoute.get('/message', adminController.getMessage)  
+
 
 
 module.exports = {adminRoute}

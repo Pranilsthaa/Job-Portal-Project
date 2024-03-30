@@ -1,37 +1,38 @@
 const {connection} = require('../Connection/Connection')
 
-function addJobModel(values, id){
-    const {job_title, location, type, industry, skills, salary, description, knowledge, education} = values
-    return new Promise((resolve, reject)=> {
-        connection.query('INSERT INTO jobs (job_title, job_location, job_type, job_industry, skillsreq, salary, job_description, knowledge, education, company_id) VALUES (?,?,?,?,?,?,?,?,?,?)', [job_title, location, type, industry, skills, salary, description, knowledge, education, id],
-         (error, result)=>{
-            if(error){
-                console.log(error)
-                reject(error)
-            }
-            else{
-                resolve(result)
-            }
+class jobModel{
+    static addJobModel(values, id){
+        const {job_title, location, type, industry, skills, salary, description, knowledge, education} = values
+        return new Promise((resolve, reject)=> {
+            connection.query('INSERT INTO jobs (job_title, job_location, job_type, job_industry, skillsreq, salary, job_description, knowledge, education, company_id) VALUES (?,?,?,?,?,?,?,?,?,?)', [job_title, location, type, industry, skills, salary, description, knowledge, education, id],
+             (error, result)=>{
+                if(error){
+                    console.log(error)
+                    reject(error)
+                }
+                else{
+                    resolve(result)
+                }
+            })
         })
-    })
-}
-
-function getJobsbyCompanyID(id){
-    return new Promise((resolve, reject)=> {
-        connection.query(`SELECT * FROM jobs where company_id= ?`, [id],
-         (error, result)=>{
-            if(error){
-                console.log(error)
-                reject(error)
-            }
-            else{
-                resolve(result)
-            }
+    }
+    
+    static getJobsbyCompanyID(id){
+        return new Promise((resolve, reject)=> {
+            connection.query(`SELECT * FROM jobs where company_id= ?`, [id],
+             (error, result)=>{
+                if(error){
+                    console.log(error)
+                    reject(error)
+                }
+                else{
+                    resolve(result)
+                }
+            })
         })
-    })
-}
+    }
 
-function getJobDetail(searchQuery){
+static getJobDetail(searchQuery){
     return new Promise((resolve, reject)=> {
         connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
                           jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted,
@@ -51,7 +52,7 @@ function getJobDetail(searchQuery){
     })
 }
 
-function getJobDetailsByID(job_id){
+static getJobDetailsByID(job_id){
     return new Promise((resolve, reject)=> {
         connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
                           jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted,company_detail.company_id, company_detail.company_name
@@ -70,7 +71,7 @@ function getJobDetailsByID(job_id){
     })
 }
 
-function updateJobDetail(values, id){
+static updateJobDetail(values, id){
     const {job_title, location, type, industry, skills, salary, description, knowledge, education} = values;
     return new Promise((resolve, reject)=> {
         connection.query('UPDATE jobs SET job_title=?, job_location=?, job_type=?, job_industry=?, skillsreq=?, salary=?, job_description=?, knowledge=?, education=? where job_id=?', [job_title, location, type, industry, skills, salary, description, knowledge, education, id],
@@ -88,7 +89,7 @@ function updateJobDetail(values, id){
 
 
 
-function deleteJob(job_id, company_id){
+static deleteJob(job_id, company_id){
     return new Promise((resolve, reject)=> {
         connection.beginTransaction((err) => {
             if (err) {
@@ -130,7 +131,7 @@ function deleteJob(job_id, company_id){
 }
 
 
-function applyJob(app_id, job_id, resume){
+static applyJob(app_id, job_id, resume){
     
     return new Promise((resolve, reject)=> {
         connection.query('INSERT INTO application (applicant_id, job_id, resume, active) VALUES (?, ?, ?, ?)', [app_id, job_id, resume, true], 
@@ -146,7 +147,7 @@ function applyJob(app_id, job_id, resume){
     })
 }
 
-function getApplicationDetailByID(id){
+static getApplicationDetailByID(id){
     
     return new Promise((resolve, reject)=> {
         connection.query('SELECT * FROM application where application_id=?', [id], 
@@ -162,7 +163,7 @@ function getApplicationDetailByID(id){
     })
 }
 
-function hasUserAppliedForJob(userId, jobId){
+static hasUserAppliedForJob(userId, jobId){
     
     return new Promise((resolve, reject)=> {
         connection.query(`SELECT COUNT(*) AS applications_count
@@ -180,17 +181,69 @@ function hasUserAppliedForJob(userId, jobId){
     })
 }
 
+static getApplicantDetailByID(id) {
+    return new Promise ((resolve, reject) => { 
+        connection.query('SELECT * FROM applicant_detail where applicant_id=?', [id],
+     (error, result) => {
+        if (error) {
+            return reject(error);
+        }
+        else{
+            return resolve(result);
+     
+        }
+    })
+    });
+}
+
+static sendMessage(values){
+    const{name, email, subject, message} = values;  
+    return new Promise((resolve, reject )=>{
+        connection.query('INSERT INTO feedback (name, email, subject, message) VALUES (?,?,?,?)', [name, email, subject, message],
+        (error, result)=>{
+            if(error){
+                console.log(error)
+                reject(error)
+            }
+            else{
+                resolve(result)
+            }
+        })
+    })
+
+}
+
+    
+static getMessage(){
+    return new Promise((resolve, reject )=>{
+        connection.query('SELECT * FROM feedback',
+        (error, result)=>{
+            if(error){
+                console.log(error)
+                reject(error)
+            }
+            else{
+                resolve(result)
+            }
+        })
+    })
+}
+
+}
+
+
 
 module.exports = {
-    addJobModel,
-    getJobDetail,
-    getJobDetailsByID,
-    updateJobDetail,
-    deleteJob,
-    applyJob,
-    getApplicationDetailByID,
-    hasUserAppliedForJob,
-    getJobsbyCompanyID
+    // addJobModel,
+    // // getJobDetail,
+    // getJobDetailsByID,
+    // updateJobDetail,
+    // deleteJob,
+    // applyJob,
+    // getApplicationDetailByID,
+    // hasUserAppliedForJob,
+    // getJobsbyCompanyID,
+    jobModel
 }
 
 

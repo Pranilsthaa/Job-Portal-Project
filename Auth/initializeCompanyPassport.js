@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const companyModel = require('../Model/companyModel'); // Assuming you have a separate model for companies
+const {companyModel} = require('../Model/companyModel'); // Assuming you have a separate model for companies
 
 const initializeCompanyPassport = () => {
   const authenticateUser = async (email, password, done) => {

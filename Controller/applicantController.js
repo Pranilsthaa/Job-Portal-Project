@@ -1,16 +1,13 @@
-const applicantModel = require('../Model/applicantModel')
-const applicationModel = require('../Model/applicationModel')
-const jobModel = require('../Model/jobModel')
-// const initializeApplicant = require('../Auth/initializeApplicantPassport')
-const passport = require('passport')
+const {applicantModel} = require('../Model/applicantModel')
+const {applicationModel} = require('../Model/applicationModel')
+const {jobModel} = require('../Model/jobModel')
 const bcrypt = require('bcrypt')
 const { removeApplicantFile, removeApplicantProfilePic } = require('../middleware/removeFile')
 const { validationResult } = require('express-validator');
 
 
 const loginApplicantForm = async (req, res) =>  {
-    res.render('Authentication/login' , {isApplicant : true, isAuth: req.isAuthenticated(), page: 'Applicant | Login'})
-    
+    res.render('Authentication/login' , {isApplicant : true, isAuth: req.isAuthenticated(), page: 'Applicant | Login'})  
 }
 
 const registerForm = (req, res) =>  {
@@ -108,7 +105,6 @@ const registerApplicant = async (req, res) =>  {
         try {
             const applicant_id = req.params.app_id;
             const job_id = req.params.job_id;
-
             const applicant = await applicantModel.getApplicantDetailByID(applicant_id);
             const resumeURL = applicant[0].applicant_resume;
 
@@ -131,7 +127,7 @@ const registerApplicant = async (req, res) =>  {
 
 //------------------------------------------------------CHECK AUTHENTICATION MIDDLEWARE
 
-    function checkAuthenticated(req, res, next) {       //ROUTE PROTECTIOn
+    function checkAuthenticated(req, res, next) {       //ROUTE PROTECTION
         if (req.isAuthenticated()) { 
           if (req.user.role === 'job-seeker') {
             return next();
@@ -168,7 +164,7 @@ const registerApplicant = async (req, res) =>  {
                     return next(err)
                 }
                 res.clearCookie('sessionCookie');
-            res.redirect('/userLogin')
+            res.redirect('/home')
         });
         
     }

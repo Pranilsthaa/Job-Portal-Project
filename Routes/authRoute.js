@@ -44,6 +44,19 @@ authRoute.post('/admin', passport.authenticate('admin', {
     successMessage: true
 }))
 
+
+authRoute.get('/home', (req, res) => {
+    let userRole;
+    if (req.user) {
+        userRole = req.user.role;
+      } else {
+        userRole = 'guest';
+      }
+    res.render('Applicant/index', {layout: 'main', homepage: true, user: userRole ,isAuth: req.isAuthenticated() });
+})
+
+authRoute.post('/contactus', adminController.sendMessage )
+
 authRoute.delete('/applicantlogout', applicantController.logout ) // LOGOUT SESSION
 authRoute.delete('/companylogout', companyController.logout) // LOGOUT SESSION
 authRoute.delete('/adminlogout', adminController.logout) // LOGOUT SESSION

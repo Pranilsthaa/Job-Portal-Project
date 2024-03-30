@@ -16,4 +16,6 @@ applicantRoute.get('/apply/:app_id/:job_id',applicant_controller.checkAuthentica
 
 applicantRoute.get('/trackStatus',applicant_controller.checkAuthenticated, applicant_controller.getTrackStatus) 
 
+
+
 module.exports = {applicantRoute}

@@ -79,6 +79,14 @@ function checkTerminated(value){
     return value === 'terminated';
 }
 
+function checkUser(value){
+    if(value == 'job-seeker'){
+        return true;
+    }
+    return false;
+
+}
+
 module.exports = {
     inc,
     formatDate,
@@ -89,5 +97,6 @@ module.exports = {
     next,
     indexInc,
     checkAuth,
-    checkTerminated
+    checkTerminated,
+    checkUser
 }

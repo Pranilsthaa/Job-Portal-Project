@@ -1,9 +1,9 @@
-const passport = require('passport')
-const applicantModel = require('../Model/applicantModel')
-const companyModel = require('../Model/companyModel')
-const applicationModel = require('../Model/applicationModel')
-const jobModel = require('../Model/jobModel')
+const {applicantModel} = require('../Model/applicantModel')
+const {companyModel} = require('../Model/companyModel')
+const {applicationModel} = require('../Model/applicationModel')
+const {jobModel} = require('../Model/jobModel')
 const mail = require('../Nodemailer/nodemailer-config') 
+
 
 const getAdminLogin = (req, res) => {
     res.render('Admin/login', {layout: 'admin'})
@@ -156,6 +156,25 @@ const getAdminDashboard = async (req, res) => {
         res.redirect('/userLogin')
     }
 
+    const sendMessage = async (req, res) => {
+        try{
+           const value = req.body;
+            let data = await jobModel.sendMessage(value);
+            res.redirect('/home#contact')
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const getMessage = async (req, res) => {
+        try{
+            let data = await jobModel.getMessage();
+            res.render('Admin/message', {layout: 'admin', user: req.user.role, data: data})
+        }catch(error){
+            console.log(error);
+        }
+    }
+
 module.exports = {
     getAdminLogin,
     getAdminDashboard,
@@ -168,7 +187,9 @@ module.exports = {
     getCompanyInfo,
     terminateCompany,
     terminateApplicant,
-    authorizeApplicant
+    authorizeApplicant,
+    sendMessage,
+    getMessage
 }
 
 

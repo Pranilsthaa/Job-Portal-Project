@@ -1,11 +1,12 @@
-const companyModel = require('../Model/companyModel')
-const jobModel = require('../Model/jobModel')
-const applicationModel = require('../Model/applicationModel')
+const {companyModel} = require('../Model/companyModel')
+const {jobModel} = require('../Model/jobModel')
+const {applicationModel} = require('../Model/applicationModel')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const { removeFile } = require('../middleware/removeFile')
 const mail = require('../Nodemailer/nodemailer-config');
 const {validationResult} = require('express-validator')
+
 
 const loginCompany = (req, res) =>  {
     res.render('Authentication/login', {isApplicant : false, page: 'Company | Login'})
@@ -65,7 +66,7 @@ const getEditJobForm = async (req, res) =>  {
     try{      
         const job_id = req.params.job_id;
         let data = await jobModel.getJobDetailsByID(job_id);
-        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0], verStatus: req.user.isVerified})
+        res.render('Company/postJobs', {data: req.user, isUpdate: true, values: data[0], verStatus: req.user.isVerified, companyAuth: req.isAuthenticated()})
     }
     catch(error){
         console.log(error);
@@ -264,7 +265,7 @@ const registerCompany = async (req, res) => {
                     return next(err)
                 }
                 res.clearCookie('sessionCookie');
-            res.redirect('/companyLogin')
+            res.redirect('/home')
         });
         
     }    

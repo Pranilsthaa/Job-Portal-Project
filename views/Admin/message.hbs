@@ -1,0 +1,26 @@
+<div class="admin-container">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">SN</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr class="table-secondary">
+      <th scope="row">1</th>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{subject}}</td>
+      <td>{{message}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>
