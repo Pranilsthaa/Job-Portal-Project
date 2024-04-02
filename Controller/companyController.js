@@ -22,14 +22,11 @@ const companyDashboard = async (req, res) =>  {
         const limit = 8;
         let page = req.query.page || 1;
         let offset = parseInt((page - 1) * limit);
-
         let jobList = await companyModel.getJobListedByCompany(id, offset, limit);
         let applicantCount = await companyModel.getApplicantCount(req.user.company_id);
         let JobListing = await companyModel.getTotalJobListingByCompany(id);
         let JobListingCount = JobListing[0].job_count;
-
         let totalPage = Math.ceil(JobListingCount / limit);
-
         let newjobList = jobList.map((job, index) => ({
             ...job,
             applicantCount: applicantCount[index].applicantCount || 0 
@@ -54,6 +51,16 @@ const getPostJobForm = async (req, res) =>  {
 
 const postJob = async (req, res) =>  {
     try {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            req.flash('error', 'Error posting job');
+          return res.render('company/postJobs', { errors: errors.array(), 
+                                                  values: req.body,
+                                                  data: req.user,
+                                                  companyAuth: req.isAuthenticated(),
+                                                  page: "Post Jobs",
+                                                  verStatus: req.user.isVerified});
+        }
         const value = req.body;
         const id = req.params.id;
         const data = await jobModel.addJobModel(value, id);
@@ -62,6 +69,7 @@ const postJob = async (req, res) =>  {
         console.log(error)
     }
 }
+
 const getEditJobForm = async (req, res) =>  {
     try{      
         const job_id = req.params.job_id;
@@ -131,10 +139,14 @@ const getProfileForm = async (req, res) =>  {
         const id = req.params.id;
         const company = await companyModel.getCompanyDetailByID(id)
 
-        res.render('Company/companyProfile', {company: company[0], data: req.user, companyAuth: req.isAuthenticated(), page: "Profile", verStatus: req.user.isVerified})
-    }catch(error){
-        console.log(error)
-    }
+        res.render('Company/companyProfile', {company: company[0],
+                                              data: req.user,
+                                              companyAuth: req.isAuthenticated(),
+                                              page: "Profile",
+                                              verStatus: req.user.isVerified })
+        }catch(error){
+            console.log(error)
+        }
 }
 
 const registerCompany = async (req, res) => {
@@ -147,9 +159,7 @@ const registerCompany = async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const data = await companyModel.registerCompany(value, hashedPassword);
         return res.render('Authentication/login', {isApplicant: false})
-    }
-
-    catch(error){
+    } catch(error){
         throw error
     }
 }
@@ -246,18 +256,15 @@ const registerCompany = async (req, res) => {
                 }
                 req.flash('success', 'Updated Successfully')
                 return res.redirect(`/company/profile/${id}`)
-            }
-            else {
+            } else {
                    let data = await companyModel.updateProfileWithoutImg(values, id);
-                  
             }
             req.flash('success', 'Updated Successfully')
             return res.redirect(`/company/profile/${id}`)
         }catch(error){
             removeFile(imgSRC);
             console.log(error);
-        }
-    }
+        } }
 
     const logout = (req, res) => {
         req.logout((err)=>{

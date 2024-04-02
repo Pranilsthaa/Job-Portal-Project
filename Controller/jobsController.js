@@ -1,7 +1,6 @@
 const {applicantModel} = require('../Model/applicantModel')
 const {jobModel} = require('../Model/jobModel')
 
-
 const getJobs = async (req, res) =>{
     try{
         let searchQuery = req.query.name || '';

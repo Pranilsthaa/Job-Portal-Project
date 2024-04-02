@@ -14,8 +14,7 @@ class jobModel{
                     resolve(result)
                 }
             })
-        })
-    }
+        })  }
     
     static getJobsbyCompanyID(id){
         return new Promise((resolve, reject)=> {
@@ -234,15 +233,6 @@ static getMessage(){
 
 
 module.exports = {
-    // addJobModel,
-    // // getJobDetail,
-    // getJobDetailsByID,
-    // updateJobDetail,
-    // deleteJob,
-    // applyJob,
-    // getApplicationDetailByID,
-    // hasUserAppliedForJob,
-    // getJobsbyCompanyID,
     jobModel
 }
 

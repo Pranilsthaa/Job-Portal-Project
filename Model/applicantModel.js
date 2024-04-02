@@ -1,5 +1,6 @@
 let {connection} = require('../Connection/Connection')
 
+
 class applicantModel {
     
     static registerApplicant(data, pass){
@@ -147,15 +148,6 @@ class applicantModel {
     }
 }
 module.exports = {
-    // registerApplicant,
-    // getApplicantDetail,
-    // getApplicantDetailByID,
-    // getImageURL,
-    // updateApplicantProfile,
-    // updateProfileWithoutImg,
-    // getApplicantDetailPaginated,
-    // terminateApplicant,
-    // authorizeApplicant
     applicantModel
 }
 

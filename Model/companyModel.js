@@ -1,7 +1,6 @@
 const {connection} = require('../Connection/Connection')
 
 class companyModel {
-
     static registerCompany(data, pass){
         const {name, phone, address, email} = data;
     return new Promise ((resolve, reject) => {
@@ -33,8 +32,6 @@ class companyModel {
     }
 
     static getCompanyDetailAdmin(searchQuery) {
-
-        // const offset = parseInt((currentPage - 1) * pageLimit);
         const query = `SELECT * FROM company_detail WHERE company_name LIKE '%${searchQuery}%' OR isVerified LIKE '%${searchQuery}%'`;
         return new Promise ((resolve, reject) => { 
             connection.query(query,
@@ -116,7 +113,6 @@ class companyModel {
 
 
     static getJobListedByCompany(id, offset, limit){
-
         return new Promise((resolve, reject)=>{
             connection.query(`SELECT jobs.job_id, jobs.job_title, jobs.job_location, jobs.job_type, jobs.job_industry, jobs.skillsreq,
                             jobs.salary, jobs.job_description, jobs.knowledge, jobs.education, jobs.dateposted, company_detail.company_name
@@ -126,13 +122,11 @@ class companyModel {
             (error, result) => {
                 if(error){
                     return reject(error);
-                }
-                else{
+                } else{
                     return resolve(result)
                 }
             })
-        })
-    }
+        }) }
 
     static getApplicantCount(com_id){
         return new Promise((resolve, reject)=>{
@@ -246,22 +240,8 @@ class companyModel {
                 }
             })
         })
-    }
-}
+      } }
+      
 module.exports = {
-    // registerCompany,
-    // getCompanyDetail,
-    // updateCompanyDetails,
-    // getCompanyDetailByID,
-    // getImageURL,
-    // updateProfileWithoutImg,
-    // getJobListedByCompany,
-    // getApplicationInfo,
-    // getApplicantCount,
-    // getUnverifiedCompany,
-    // verifycompany,
-    // getTotalJobListingByCompany,
-    // terminateCompany,
-    // getCompanyDetailAdmin
     companyModel
 }

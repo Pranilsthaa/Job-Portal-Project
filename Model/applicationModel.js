@@ -11,13 +11,11 @@ class applicationModel {
             (error, result)=>{
                 if(error){
                     reject(error);
-                }
-                else{
+                } else{
                     resolve(result);
                 }
             })
-        })
-    }
+        }) }
 
     static getApplicationByID(id){
         return new Promise((resolve, reject)=>{
@@ -72,8 +70,7 @@ class applicationModel {
             SELECT COUNT(*) AS total_applicants FROM applicant_detail;
             SELECT COUNT(*) AS total_applications FROM application;
             SELECT COUNT(*) AS total_companies FROM company_detail;
-            SELECT COUNT(*) AS total_jobs_posted FROM jobs;
-            `,
+            SELECT COUNT(*) AS total_jobs_posted FROM jobs;`,
         (error, results) => {
         if (error) {
             console.error(error);
@@ -81,14 +78,11 @@ class applicationModel {
         }
         resolve(results);
     });
-
         })
     }
 }
+
+
 module.exports = {
-    // changeApplicationStatus,
-    // getApplicationByID,
-    // getApplicantEmailByApplicationID,
-    // getUserData,
     applicationModel   
 }

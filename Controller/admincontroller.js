@@ -11,14 +11,14 @@ const getAdminLogin = (req, res) => {
 
 const getAdminDashboard = async (req, res) => {
     try{
-        let data = await applicationModel.getUserData();
-        req.flash('loginSuccess', 'Logged in Successfully');
-        res.render('Admin/dashboard', {layout: 'admin',
-                                       user: req.user.role,
-                                       applicants: data[0][0].total_applicants,
-                                       companies: data[2][0].total_companies,
-                                       jobs: data[3][0].total_jobs_posted,
-                                       applications: data[1][0].total_applications,
+     let data = await applicationModel.getUserData();
+     req.flash('loginSuccess', 'Logged in Successfully');
+     res.render('Admin/dashboard', {layout: 'admin',
+                                    user: req.user.role,
+                                    applicants: data[0][0].total_applicants,
+                                    companies: data[2][0].total_companies,
+                                    jobs: data[3][0].total_jobs_posted,
+                                    applications: data[1][0].total_applications,
                                     })
     }catch(error){
         console.log(error);
@@ -27,15 +27,18 @@ const getAdminDashboard = async (req, res) => {
 
     const getApplicants = async (req, res) => {
         try{
-            let page = req.query.page || 1;
-            let searchQuery = req.query.name || '';
-            let data = await applicantModel.getApplicantDetailPaginated(page, 10, searchQuery);
-            let userData = await applicationModel.getUserData();
-            let totalAppliants = parseInt(userData[0][0].total_applicants);
-
-            let totalPage = Math.ceil(totalAppliants / 10);
-
-            res.render('Admin/applicant', {layout: 'admin', user: req.user.role, data: data, totalPage: totalPage, currentPage: page, applicantPage: true})
+        let page = req.query.page || 1;
+        let searchQuery = req.query.name || '';
+        let data = await applicantModel.getApplicantDetailPaginated(page, 10, searchQuery);
+        let userData = await applicationModel.getUserData();
+        let totalAppliants = parseInt(userData[0][0].total_applicants);
+        let totalPage = Math.ceil(totalAppliants / 10);
+            res.render('Admin/applicant', {layout: 'admin',
+                                           user: req.user.role,
+                                           data: data,
+                                           totalPage: totalPage,
+                                           currentPage: page,
+                                           applicantPage: true})
         }catch(error){
             console.log(error)
         }
@@ -46,10 +49,12 @@ const getAdminDashboard = async (req, res) => {
     const getnotification = async (req, res) => {
         try{
             let data = await companyModel.getUnverifiedCompany();
-            res.render('Admin/notification', {layout: 'admin', user: req.user.role, data: data})
+            res.render('Admin/notification', {layout: 'admin',
+                                              user: req.user.role,
+                                              data: data})
         }catch(error){
             console.log(error)
-        }
+        } 
     } 
 
     const verifycompany = async (req, res) => {

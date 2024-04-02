@@ -6,8 +6,6 @@ const applicantController = require('../Controller/applicantController')
 const companyController = require('../Controller/companyController');
 const adminController = require('../Controller/admincontroller');
 const { validateUserRegister } = require('../validation/Validation');
-const clearLoginSuccessFlash = require('../middleware/checkFlash');
-
 
 authRoute.get('/userLogin', applicantController.checkNotAuthenticated, applicantController.loginApplicantForm)           // FOR USER ROUTE
 authRoute.post('/userLogin', passport.authenticate('applicant', {

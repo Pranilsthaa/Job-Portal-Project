@@ -15,36 +15,38 @@ res.render('Authentication/register', {isApplicant : true, page: 'Applicant | Re
 }
 
 const registerApplicant = async (req, res) =>  {
-
     try{
         const value = req.body;
         const error = validationResult(req);
         if(!error.isEmpty()){
-            return res.render('Authentication/register', {isApplicant: true, page: 'Applicant | Register', error: error.mapped(), values: req.body})
+            return res.render('Authentication/register', {isApplicant: true,
+                                                          page: 'Applicant | Register',
+                                                          error: error.mapped(),
+                                                          values: req.body
+                                                        })
         }
         else{
             const hasedPassword = await bcrypt.hash(req.body.password, 10);
             const data = await applicantModel.registerApplicant(value, hasedPassword);
-           
             return res.render('Authentication/login', {isApplicant: true, page: 'Applicant | Register'})
         }
-    }
-
-    catch (error) {
+    } catch (error) {
         console.error('Error registering applicant:', error);
         res.status(500).send('An error occurred while registering applicant');
       }
 }
 
-
     const getProfileForm = async (req, res) =>{
         try {
-            const id = req.params.id;
-            res.render('Applicant/applicantProfile', {data: req.user, isAuth: req.isAuthenticated(), page: "Profile"});   
+            res.render('Applicant/applicantProfile', {data: req.user,
+                                                      isAuth: req.isAuthenticated(),
+                                                      page: "Profile"
+                                                    });   
         } catch (error) {
             console.log(error);
         }
     }
+
     const updateApplicantProfile = async (req, res) => {
         let cvSRC, profilePicSRC;
       
@@ -54,8 +56,8 @@ const registerApplicant = async (req, res) =>  {
       
           // Check if resume or profile picture is uploaded
           if (req.files) {
-            if (req.files.resume) {
-              cvSRC = req.files.resume[0].filename;
+            if (req.files.applicant_resume) {
+              cvSRC = req.files.applicant_resume[0].filename;
             }
             if (req.files.profilePic) {
               profilePicSRC = req.files.profilePic[0].filename;
@@ -87,7 +89,7 @@ const registerApplicant = async (req, res) =>  {
           }
       
           req.flash('success', 'Updated Successfully');
-          res.redirect(`/applicant/profile/${id}`);
+          res.redirect(`/applicant/profile`);
         } catch (error) {
           // Remove uploaded files in case of error
           if (cvSRC) {
@@ -116,10 +118,14 @@ const registerApplicant = async (req, res) =>  {
         }
     }
 
-    const getTrackStatus = async (req, res) =>{                   // Apply Applicant
+    const getTrackStatus = async (req, res) =>{                   
         try {
             let data = await applicationModel.getApplicationByID(req.user.applicant_id);
-            res.render('Applicant/trackStatus', {data: data, id: req.user, isAuth: req.isAuthenticated(), page: "Track Status"}) 
+            res.render('Applicant/trackStatus', { data: data,
+                                                  id: req.user,
+                                                  isAuth: req.isAuthenticated(),
+                                                  page: "Track Status"
+                                                }) 
         } catch (error) {
             console.log(error);
         }

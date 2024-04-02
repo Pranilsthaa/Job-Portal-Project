@@ -8,14 +8,22 @@ validateUserRegister = [                                                        
         check('password').notEmpty().withMessage('Password is Required !!!').isLength({min: 6}).withMessage('Password must be at least 6 characters long !!!'),
     ]
 
+const postJobValidationRules = [
+        check('job_title').notEmpty().withMessage('Job title is required'),
+        check('location').notEmpty().withMessage('Location is required'),
+        check('type').notEmpty().withMessage('Employment type is required'),
+        check('industry').notEmpty().withMessage('Industry is required'),
+        check('skills').notEmpty().withMessage('Skills required are required'),
+        check('salary').isInt().withMessage('Salary must be an integer').notEmpty().withMessage('Salary is required'),
+        check('description').notEmpty().withMessage('Job description is required'),
+        check('knowledge').notEmpty().withMessage('Knowledge required is required'),
+        check('education').notEmpty().withMessage('Education required is required'),
+      ];
 
-// let validateCategoryForm = [                                                            // Express-validator for validation
-//     check('category_name').notEmpty().withMessage('Empty String')
-// ]
 
 module.exports = {
     validateUserRegister,
-    // validateCategoryForm
+    postJobValidationRules
 }
 
 

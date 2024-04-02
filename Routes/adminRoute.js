@@ -1,10 +1,6 @@
 const express = require('express');
 const adminRoute = express.Router();
-const session = require('express-session');
-
 const adminController = require('../Controller/admincontroller');
-const clearLoginSuccessFlash = require('../middleware/checkFlash');
-
 
 adminRoute.get('/dashboard', adminController.getAdminDashboard)    //ADMIN DASHBOARD
 

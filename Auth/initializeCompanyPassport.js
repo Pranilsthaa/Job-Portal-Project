@@ -11,12 +11,10 @@ const initializeCompanyPassport = () => {
       if (!Array.isArray(companyData)) {
         return done(null, false, { message: 'Company data is not available' });
       }
-
       const company = companyData.find(company => company.company_email === email);
       if (!company) {
         return done(null, false, { message: 'No company with that email' });
       }
-
       const hashedPassword = company.company_password.toString();
       if (await bcrypt.compare(password, hashedPassword)) {
         return done(null, company);
@@ -27,7 +25,6 @@ const initializeCompanyPassport = () => {
       return done(e);
     }
   };
-
   passport.use('company', new LocalStrategy({ usernameField: 'email' }, authenticateUser));
   passport.serializeUser((company, done) => done(null, company.company_id));
   passport.deserializeUser(async (company_id, done) => {

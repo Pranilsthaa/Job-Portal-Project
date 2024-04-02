@@ -2,7 +2,7 @@ const express = require('express');
 const companyRoute = express.Router();
 const controller = require('../Controller/companyController');
 const upload = require('../middleware/imageHandler');
-const jobModel = require('../Model/jobModel')
+const {postJobValidationRules} = require('../validation/Validation')
 
 companyRoute.get('/Dashboard',controller.checkAuthenticated, controller.companyDashboard)
 
@@ -14,7 +14,7 @@ companyRoute.post('/profile/:id',upload.single('company_logo'), controller.updat
 
 
 companyRoute.get('/postJobs',controller.checkAuthenticated, controller.getPostJobForm)
-companyRoute.post('/postJobs/:id', controller.checkCompanyVerification, controller.postJob)
+companyRoute.post('/postJobs/:id',postJobValidationRules, controller.checkCompanyVerification, controller.postJob)
 
 
 companyRoute.get('/postJobs/edit/:job_id',controller.checkAuthenticated, controller.getEditJobForm)
